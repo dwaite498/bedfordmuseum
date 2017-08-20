@@ -14,3 +14,8 @@ body {
 .section-header {
   text-align: center;
 }
+
+img {
+  display: block;
+  margin: auto;
+}
