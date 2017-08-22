@@ -24,3 +24,7 @@ img {
   text-align: center;
   vertical-align: middle;
 }
+
+li {
+  padding-bottom: 5px;
+}
