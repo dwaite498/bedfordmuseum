@@ -19,3 +19,8 @@ img {
   display: block;
   margin: auto;
 }
+
+.table-header {
+  text-align: center;
+  vertical-align: middle;
+}
