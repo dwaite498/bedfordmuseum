@@ -4,7 +4,7 @@
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 .main-content {
@@ -27,4 +27,8 @@ img {
 
 li {
   padding-bottom: 5px;
+}
+
+.schedule-list {
+  padding-left: 200px;
 }
