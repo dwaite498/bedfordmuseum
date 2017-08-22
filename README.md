@@ -1,4 +1,4 @@
-# Bedford Museum and Geneological Library
+# Bedford Museum and Genealogical Library
 
 This is a rebuild of the Bedford Museum website. An initial straight html and css code base will be replaced with a rails app as the project progresses into the bookstore and member services sections. The goal is to add responsive aspects to the website with AJAX and JQuery. Future items and planned are listed below
 
