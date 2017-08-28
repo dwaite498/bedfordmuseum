@@ -4,4 +4,10 @@ class IndexController < ApplicationController
   
   def directions 
   end
+  
+  def membership
+  end
+  
+  def resaerch
+  end
 end
