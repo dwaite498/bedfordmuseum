@@ -8,6 +8,9 @@ class IndexController < ApplicationController
   def membership
   end
   
-  def resaerch
+  def research
+  end
+  
+  def schedule
   end
 end
