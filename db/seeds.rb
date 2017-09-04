@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+category = ["local", "WWII", "geneology"]
+10.times do
+    book = Book.create!(
+       :title => Faker::Book.title,
+       :description => Faker::Simpsons.quote,
+       :author => Faker::Book.author,
+       :category => category.sample
+       )
+    book.save
+end

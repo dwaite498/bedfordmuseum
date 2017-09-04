@@ -1,4 +1,8 @@
-<div class="container section-header">
-    <h1>Under Contruction</h1>   
-    <%= image_tag("underconstruction.jpg", :alt => "Under construction") %>
+<h1 class="section-header">Bookstore</h1> 
+<p class="section-header">Categories, search, filter boxes!</p>
+<div class="container">
+    <% @books.each do |book| %>
+        <h6><%= book.title %></h6>
+        <p><%= book.author %></p>
+    <% end %>
 </div>
