@@ -47,3 +47,8 @@ li {
 .schedule-list {
   padding-left: 200px;
 }
+
+.justify-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
