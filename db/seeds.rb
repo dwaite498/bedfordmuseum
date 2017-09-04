@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 category = ["local", "WWII", "geneology"]
-10.times do
+40.times do
     book = Book.create!(
        :title => Faker::Book.title,
        :description => Faker::Simpsons.quote,

@@ -1,8 +1,13 @@
 <h1 class="section-header">Bookstore</h1> 
 <p class="section-header">Categories, search, filter boxes!</p>
-<div class="container">
-    <% @books.each do |book| %>
-        <h6><%= book.title %></h6>
-        <p><%= book.author %></p>
-    <% end %>
+<div class="container section-header">
+    <div class="container row">
+        <% @books.each do |book| %>
+            <div class="col-md-3">
+                <h6><%= book.title %></h6>
+                <p><%= book.author %></p>
+            </div>
+        <% end %>
 </div>
+</div>
+
