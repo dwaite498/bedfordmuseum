@@ -11,7 +11,8 @@ category = ["local", "WWII", "geneology"]
        :title => Faker::Book.title,
        :description => Faker::Simpsons.quote,
        :author => Faker::Book.author,
-       :category => category.sample
+       :category => category.sample,
+       :image_file_name => "classof1940.jpg"
        )
     book.save
 end
