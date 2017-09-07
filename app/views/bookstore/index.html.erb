@@ -4,7 +4,7 @@
     <div class="container row">
         <% @books.each do |book| %>
             <div class="col-md-3">
-                <h6><%= book.title %></h6>
+                <h6><%= link_to book.title, bookstore_url(book.id) %></a></h6>
                 <p><%= book.author %></p>
                 <p class="justify-text"><%= truncate(book.description, length: 60) %></p>
             </div>
