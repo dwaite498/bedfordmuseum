@@ -52,3 +52,17 @@ li {
   text-align: justify;
   text-justify: inter-word;
 }
+
+.center {
+  text-align: center;
+}
+
+.book-image {
+  width: 260px;
+  height: 337px;
+}
+
+.book-image-small {
+  width: 75px;
+  height: 100px;
+}
