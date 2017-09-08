@@ -1,4 +1,17 @@
 <div class="container section-header">
+
     <h1>Under Contruction</h1>   
     <%= image_tag("underconstruction.jpg", :alt => "Under onstruction") %>
 </div>
+    <div class="container row">
+        <% @books.each do |book| %>
+            <div class="col-md-3">
+                <h6><%= link_to book.title, bookstore_url(book.id) %></a></h6>
+                <p><%= book.author %></p>
+                <%= image_tag(book.image_file_name, :alt => book.title, class:"book-image-small") %>
+                <p class="justify-text"><%= truncate(book.description, length: 60) %></p>
+            </div>
+        <% end %>
+    </div>
+</div>
+
