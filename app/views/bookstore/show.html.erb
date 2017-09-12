@@ -9,7 +9,7 @@
             <h6><%= @book.author %></h6>
             <p><%= @book.description %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" width="120" height="26">
+            <p> <%= @book.paypal_link %></p>
         </div>
     </div>
 
