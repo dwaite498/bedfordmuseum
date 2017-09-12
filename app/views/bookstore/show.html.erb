@@ -1,5 +1,5 @@
 <div class="container main-content">
-    <div class="container row main-content5">
+    <div class="container row main-content">
         <div class="col-md-6">
             <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image") %>
         </div>
@@ -9,7 +9,7 @@
             <h6><%= @book.author %></h6>
             <p><%= @book.description %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
-            <p> <%= @book.paypal_link %></p>
+            <p> <%= @book.paypal_link.html_safe %></p>
         </div>
     </div>
 
@@ -17,10 +17,10 @@
     <div class="container row ">
 
             <% @booksample.each do |book| %>
-                <div class="col-md-4 center">
+                <div class="col-md-3 center">
+                    <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image-small") %>
                     <h4><%= link_to book.title, bookstore_url(book.id) %></a></h4>
                     <p><%= book.author %></p>
-                    <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image-small") %>
                 </div>
             <% end %>
 
