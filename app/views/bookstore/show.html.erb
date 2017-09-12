@@ -9,7 +9,7 @@
             <h6><%= @book.author %></h6>
             <p><%= @book.description %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
-            <p> <%= @book.paypal_link %></p>
+            <p> <%= @book.paypal_link.html_safe %></p>
         </div>
     </div>
 
