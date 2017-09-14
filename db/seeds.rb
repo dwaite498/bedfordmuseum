@@ -19,13 +19,20 @@ paypal_link = ['<form target="paypal" action="https://www.paypal.com/cgi-bin/web
   <img alt="" width="1" height="1"
     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
 </form>']
-category = ["local", "WWII", "geneology"]
+@bookcategory = ["Local History", "Warfare", "Genealogy", "Trains", "Dvds and Cds", "Gifts and Accessories"]
+
+@bookcategory.each do |category|
+    Category.create(
+        :name => category
+        )    
+end
+
 40.times do
     book = Book.create!(
        :title => Faker::Book.title,
        :description => Faker::Simpsons.quote,
        :author => Faker::Book.author,
-       :category => category.sample,
+       :category_id => Category.ids.sample,
        :image_file_name => "classof1940.jpg",
        :price => Faker::Number.decimal(2),
        :shipping => Faker::Number.decimal(2),
