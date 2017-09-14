@@ -1,4 +1,5 @@
 class BookstoreController < ApplicationController
+   before_action :find_book, only: [:show, :edit, :update, :destroy]
    
     def index
         if params[:category].blank?
@@ -15,9 +16,18 @@ class BookstoreController < ApplicationController
     end
     
     def new
+        @book = Book.new
+        @categories = Category.all.map{ |c| [c.name, c.id]}
     end
     
     def create
+        @book = Book.new(book_params)
+        if @book.save
+            redirect_to bookstore_index_path
+            @book.category_id = params[:category_id]
+        else
+           render 'new' 
+        end
     end
     
     def destroy
@@ -27,5 +37,15 @@ class BookstoreController < ApplicationController
     end
     
     def update
+    end
+    
+    private
+    
+    def book_params
+       params.require(:book).permit(:title, :description, :author, :category, :image_file_name, :category_id, :price, :shipping)
+    end
+    
+    def find_book
+        @book = Book.find(params[:id])
     end
 end

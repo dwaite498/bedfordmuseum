@@ -1,5 +1,6 @@
 <h1 class="section-header">Bookstore</h1> 
     <div class="main-content center">
+        <%= link_to "Add Bookstore Item", new_bookstore_path %>
         <% Category.all.each do |category| %>
             <button type="button" class="<%= 'active' if params[:category] == category.name %> btn btn-default">
                 <%= link_to category.name, bookstore_index_path(category: category.name) %>

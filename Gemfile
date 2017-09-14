@@ -35,6 +35,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', '~> 5.1'
 gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'devise', '~> 4.3'
+gem 'simple_form', '~> 3.5'
+gem 'bootstrap', '~> 4.0.0.beta'
   
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
