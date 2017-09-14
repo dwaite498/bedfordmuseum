@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   get '/research', to: "index#research"
   get '/schedule', to: "index#schedule"
   
-  resources :bookstore, only: [:index, :show]
+  resources :bookstore
 end

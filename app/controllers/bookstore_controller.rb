@@ -1,5 +1,5 @@
 class BookstoreController < ApplicationController
-    
+   
     def index
         if params[:category].blank?
             @books = Book.all.order("created_at DESC")
@@ -12,5 +12,20 @@ class BookstoreController < ApplicationController
     def show
         @book = Book.find(params[:id])
         @booksample = Book.all.sample(4)
+    end
+    
+    def new
+    end
+    
+    def create
+    end
+    
+    def destroy
+    end
+    
+    def edit
+    end
+    
+    def update
     end
 end
