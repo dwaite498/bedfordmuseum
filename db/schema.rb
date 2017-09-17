@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914184842) do
+ActiveRecord::Schema.define(version: 20170917214803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170914184842) do
     t.string   "image_file_name"
     t.string   "price"
     t.string   "shipping"
-    t.string   "paypal_link"
+    t.text     "paypal_link"
     t.integer  "category_id"
   end
 

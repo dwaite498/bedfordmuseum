@@ -23,7 +23,7 @@ class BooksController < ApplicationController
     def create
         @book = Book.new(book_params)
         if @book.save
-            redirect_to book_index_path
+            redirect_to books_path
             @book.category_id = params[:category_id]
         else
            render 'new' 
@@ -42,7 +42,7 @@ class BooksController < ApplicationController
     private
     
     def book_params
-       params.require(:book).permit(:title, :description, :author, :category, :image_file_name, :category_id, :price, :shipping)
+       params.require(:book).permit(:title, :description, :author, :category, :image_file_name, :category_id, :price, :shipping, :paypal_link)
     end
     
     def find_book
