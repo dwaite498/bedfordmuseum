@@ -1,4 +1,4 @@
-class BookstoreController < ApplicationController
+class BooksController < ApplicationController
    before_action :find_book, only: [:show, :edit, :update, :destroy]
    
     def index
@@ -23,7 +23,7 @@ class BookstoreController < ApplicationController
     def create
         @book = Book.new(book_params)
         if @book.save
-            redirect_to bookstore_index_path
+            redirect_to book_index_path
             @book.category_id = params[:category_id]
         else
            render 'new' 

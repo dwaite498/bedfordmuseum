@@ -1,9 +1,9 @@
 <h1 class="section-header">Bookstore</h1> 
     <div class="main-content center">
-        <%= link_to "Add Bookstore Item", new_bookstore_path %>
+        <%= link_to "Add Bookstore Item", new_book_path %>
         <% Category.all.each do |category| %>
             <button type="button" class="<%= 'active' if params[:category] == category.name %> btn btn-default">
-                <%= link_to category.name, bookstore_index_path(category: category.name) %>
+                <%= link_to category.name, books_path(category: category.name) %>
             </button>
         <% end %>
     </div>
@@ -12,7 +12,7 @@
         <% @books.each do |book| %>
             <div class="col-md-3">
                 <%= image_tag(book.image_file_name, :alt => book.title, class:"book-image-small") %>
-                <h6><%= link_to book.title, bookstore_url(book.id) %></a></h6>
+                <h6><%= link_to book.title, book_url(book.id) %></a></h6>
                 <p><%= book.author %></p>
                 <p class="justify-text"><%= truncate(book.description, length: 60) %></p>
             </div>
