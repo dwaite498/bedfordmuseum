@@ -54,3 +54,14 @@ li {
   height: 150px;
 }
 
+.background {
+  background-image: url("museum.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+
+}
+
+.opaque {
+  background: white;
+  opacity: 0.65;
+}
