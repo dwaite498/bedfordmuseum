@@ -10,6 +10,7 @@
             <p><%= @book.description %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
             <p> <%= raw(@book.paypal_link) %></p>
+            <p> <%= link_to "edit book", edit_book_path(@book) %></p>
         </div>
     </div>
 

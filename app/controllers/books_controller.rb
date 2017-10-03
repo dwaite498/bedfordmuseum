@@ -11,7 +11,7 @@ class BooksController < ApplicationController
     end
     
     def show
-        @book = Book.find(params[:id])
+        find_book
         @booksample = Book.all.sample(4)
     end
     
@@ -34,9 +34,19 @@ class BooksController < ApplicationController
     end
     
     def edit
+        find_book
+        @categories = Category.all.map{ |c| [c.name, c.id]}
+
     end
     
     def update
+        @book = Book.find(params[:id])
+        @book.update(book_params)
+        if @book.update(book_params)
+           redirect_to @book
+        else
+            render 'edit'
+        end
     end
     
     private
