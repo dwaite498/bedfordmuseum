@@ -31,6 +31,13 @@ class BooksController < ApplicationController
     end
     
     def destroy
+        find_book
+        @book.destroy
+        if @book.destroy
+            redirect_to books_path
+           else
+            redirect_to @book   
+        end
     end
     
     def edit
