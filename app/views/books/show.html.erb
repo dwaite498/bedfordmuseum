@@ -1,4 +1,4 @@
-<div class="container main-content">
+<div class="container main-content center">
     <div class="container row main-content">
         <div class="col-md-6">
             <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image") %>
@@ -17,7 +17,6 @@
 
     
     <div class="container row ">
-
             <% @booksample.each do |book| %>
                 <div class="col-md-3 center">
                     <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image-small") %>
@@ -25,6 +24,5 @@
                     <p><%= book.author %></p>
                 </div>
             <% end %>
-
     </div>
 </div>

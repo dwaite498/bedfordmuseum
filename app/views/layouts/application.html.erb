@@ -15,75 +15,71 @@
 	<!-- main content -->
 </head>
 <body>
-
-	<!-- navbar -->
-	<div id="page-container">
-		<p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-		<div class="container navbar-size">
-			<nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-faded">
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <!-- navbar -->
+	<div class="container navbar-size">
+		<nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-faded">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
-			  </button>
-				<a class="navbar-brand" href="/">Bedford Museum and Genealogical Library</a>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						<li class="nav-item active">
-							<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="schedule.html">Events</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="research.html">Research</a>
-						</li>
-						<li class="nav-item">
-							<%= link_to "Bookstore", books_path, class: "nav-link" %>
-						</li>
-					</ul>
-					<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-						<li><a class="navbar-text" href="/">Member Login</a></li>
-					</ul>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-		</div>
-
-<div class="main-content background">
-	<%= yield %>
-</div>
-		<!-- End page content -->
-		<footer class="footer bg-faded">
-			<div class="container">
-				<div class="row footer-container">
-					<div class="col-md-3">
-						<h6>Hours of Operation:</h6>
-						<p>Monday - Friday 10AM to 5PM</br> Saturday 10AM to 5M </br>
-							Closed Sundays, and National Holidays.</p>
-					</div>
-
-					<div class="col-md-3">
-						<h6>Address:</h6>
-						<p>Bedford Museum and Genealogy Library 201 East Main Street Bedford, VA 24523<br /> Manager: Doug Cooper <br />Phone: (540) 586-4520</p>
-					</div>
-
-					<div class="col-md-3">
-						<h6>Associations:</h6>
-						<p> Virginia Association of Museums, American Association of Museums, American Association for State and Local History, Virginia Genealogical Society, American Alliance of Museums</p>
-					</div>
-
-					<div class="col-md-3">
-						<h6>Bedford Informational sites:</h6>
-						<p>Bedford Chamber of Commerce www.BedfordAreaChamber.com</p>
-						<p>Bedford Welcome Center www.visitBedford.com</p>
-					</div>
-
-				</div>
+		  	</button>
+			<a class="navbar-brand" href="/">Bedford Museum and Genealogical Library</a>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="schedule.html">Events</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="research.html">Research</a>
+					</li>
+					<li class="nav-item">
+						<%= link_to "Bookstore", books_path, class: "nav-link" %>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+					<li><a class="navbar-text" href="/">Member Login</a></li>
+				</ul>
 			</div>
-		</footer>
-
-		<!-- #End page container -->
+		</nav>
 	</div>
+	<!-- End Navbar -->
+
+	<div class='container main-content'>
+		<%= yield %>
+	</div>
+
+		<!-- End page content -->
+	<footer class="footer bg-faded">
+		<div class="container">
+			<div class="row footer-container">
+				<div class="col-md-3">
+					<h6>Hours of Operation:</h6>
+					<p>Monday - Friday 10AM to 5PM</br> Saturday 10AM to 5M </br>
+						Closed Sundays, and National Holidays.</p>
+				</div>
+
+				<div class="col-md-3">
+					<h6>Address:</h6>
+					<p>Bedford Museum and Genealogy Library 201 East Main Street Bedford, VA 24523<br /> Manager: Doug Cooper <br />Phone: (540) 586-4520</p>
+				</div>
+
+				<div class="col-md-3">
+					<h6>Associations:</h6>
+					<p> Virginia Association of Museums, American Association of Museums, American Association for State and Local History, Virginia Genealogical Society, American Alliance of Museums</p>
+				</div>
+
+				<div class="col-md-3">
+					<h6>Bedford Informational sites:</h6>
+					<p>Bedford Chamber of Commerce www.BedfordAreaChamber.com</p>
+					<p>Bedford Welcome Center www.visitBedford.com</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
 
 	<!-- CSS and layout scripts -->
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
@@ -106,8 +102,5 @@
 		ga('create', 'UA-104297658-1', 'auto');
 		ga('send', 'pageview');
 	</script>
-
-
 </body>
-
 </html>

@@ -1,5 +1,5 @@
 <h1 class="section-header">Bookstore</h1> 
-    <div class="main-content center">
+    <div class="center">
         <%= link_to "Add Bookstore Item", new_book_path %>
         <% Category.all.each do |category| %>
             <button type="button" class="<%= 'active' if params[:category] == category.name %> btn btn-default">
@@ -7,8 +7,8 @@
             </button>
         <% end %>
     </div>
-<div class="container section-header">
-    <div class="container row">
+<div class="section-header">
+    <div class="row">
         <% @books.each do |book| %>
             <div class="col-md-3">
                 <%= image_tag(book.image_file_name, :alt => book.title, class:"book-image-small") %>

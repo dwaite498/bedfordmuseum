@@ -1,5 +1,6 @@
 class IndexController < ApplicationController
   def index
+    @indexitems = Indexitem.all
   end
   
   def directions 
