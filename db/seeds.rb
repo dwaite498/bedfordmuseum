@@ -40,3 +40,19 @@ end
        )
     book.save
 end
+
+User.create(
+    :email => "dwaite498@gmail.com",
+    :password => "password",
+    :admin => true,
+    :created_at => "2017-10-14 20:26:01",
+    :name => "Museum Admin"
+    )
+    
+User.create(
+    :email => "email@email.com",
+    :password => "password",
+    :admin => false,
+    :created_at => "2017-10-14 20:26:01",
+    :name => "Museum Member"
+    )
