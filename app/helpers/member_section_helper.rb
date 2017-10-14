@@ -1,0 +1,2 @@
+module MemberSectionHelper
+end

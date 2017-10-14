@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get '/schedule', to: "index#schedule"
   
   resources :books
+  
 end
