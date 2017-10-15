@@ -54,5 +54,6 @@ User.create(
     :password => "password",
     :admin => false,
     :created_at => "2017-10-14 20:26:01",
-    :name => "Museum Member"
+    :name => "Museum Member",
+    :expiration_date => "2018-10-15 00:00:00"
     )

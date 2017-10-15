@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-   devise_for :users
-  resources :users, except: :create
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  # Name it however you want
-  post 'create_user' => 'users#create', as: :create_user    
+
   root to: 'index#index'
   
   get '/directions', to: "index#directions"

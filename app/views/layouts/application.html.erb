@@ -38,18 +38,20 @@
 					<li class="nav-item">
 						<%= link_to "Bookstore", books_path, class: "nav-link" %>
 					</li>
-					<% if user_signed_in? && current_user.admin? %>
+					<% if user_signed_in? %>
 						<li class="nav-item">
-							<%= link_to "Member Database", databaseindex_path, class: "nav-link" %>
+							<%= link_to "Member Database", root_path, class: "nav-link" %>
 						</li>
 					<% end %>	
 				</ul>
 				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
 					<% if user_signed_in? && current_user.admin? %>
+						<li class="nav-item"><%= current_user.name %></li>
 						<li><%= link_to "Create User", new_user_registration_path, class: "nav-link"  %></li>
 						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></li>
 					<% elsif user_signed_in?  %>
-						i><%= link_to "Edit Account", edit_user_registration_path, class: "nav-link"  %></li>
+						<li class="nav-item"><%= current_user.name %></li>
+						<%= link_to "Edit Account", edit_user_registration_path, class: "nav-link"  %></li>
 						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></li>
 					<% else %>
 						<li><%= link_to "Sign In", new_user_session_path, class: "nav-link" %></li>
