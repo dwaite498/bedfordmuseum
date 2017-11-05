@@ -1,4 +1,6 @@
 class IndexController < ApplicationController
+  before_action :authenticate_user!, only: [:manage]
+  
   def index
     @indexitems = Indexitem.all
   end
@@ -13,5 +15,9 @@ class IndexController < ApplicationController
   end
   
   def schedule
+  end
+  
+  def manage
+    @indexitems = Indexitem.all
   end
 end

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/research', to: "index#research"
   get '/schedule', to: "index#schedule"
   get '/about', to: "index#about"
+  get '/manage', to: "index#manage"
   
   resources :database, only: [:index]
   
