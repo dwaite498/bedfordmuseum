@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/about', to: "index#about"
   get '/manage', to: "index#manage"
   
+  resources :index, only: [:update, :edit, :new, :create]
+  
   resources :database, only: [:index]
   
   resources :books
