@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
    before_action :find_book, only: [:show, :edit, :update, :destroy]
+   before_action :user_is_admin, only: [:edit, :update, :destroy, :create, :new]
    
     def index
         if params[:category].blank?
@@ -64,5 +65,12 @@ class BooksController < ApplicationController
     
     def find_book
         @book = Book.find(params[:id])
+    end
+    
+    def user_is_admin
+       unless current_user && current_user.admin?
+           redirect_to books_path
+           flash[:alert] = "User not authorized"
+       end
     end
 end

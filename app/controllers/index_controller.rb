@@ -1,5 +1,6 @@
 class IndexController < ApplicationController
-  before_action :authenticate_user!, only: [:manage]
+  before_action :authenticate_user!, except: [:index, :directions, :membership, :research, :schedule, :about]
+
   
   def index
     @indexitems = Indexitem.all
@@ -31,6 +32,7 @@ class IndexController < ApplicationController
   end
   
   def new
+    @indexitem = Indexitem.new
   end
   
   def update
@@ -38,8 +40,17 @@ class IndexController < ApplicationController
   
   def edit
   end
+  
+  private
 
   def index_params
-    params.require(:indexitem).permit(:title, :body, :image)
+    params.require(:indexitem).permit(:title, :body, :link)
+  end
+  
+  def user_is_admin
+       unless current_user && current_user.admin?
+           redirect_to root_path
+           flash[:alert] = "User not authorized"
+       end
   end
 end
