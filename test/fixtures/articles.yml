@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  main_page: false
+  main_page_index: 1
+  expiration_date: 2017-12-17
+
+two:
+  title: MyString
+  body: MyText
+  main_page: false
+  main_page_index: 1
+  expiration_date: 2017-12-17
