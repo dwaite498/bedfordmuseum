@@ -16,6 +16,6 @@ Rails.application.routes.draw do
   
   resources :books
   
-  resources :articles, only: [:index, :edit, :new, :create]
+  resources :articles, only: [:index, :edit, :update, :new, :create, :destroy]
   
 end

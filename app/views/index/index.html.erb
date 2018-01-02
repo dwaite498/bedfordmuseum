@@ -5,15 +5,17 @@
 	<p>This is a placeholder index header earmarked for replacement by the announcement and news slides.</p>
 </div>
 
-<div class="row">
-	<div class="col-md-12 ">
-		<h3 class="section-header">FRIDAY’S AT THE MUSEUM 2017</h3>
-		<p>Join us this year for our annual kids program, Friday's at the Museum. Nunc ac purus rhoncus, rhoncus neque ut, lobortis justo. Etiam faucibus ornare est, a placerat libero imperdiet in. Nulla eget dolor lorem. Phasellus tempus nulla est, sit amet
-			luctus magna euismod vitae. Etiam sit amet posuere nisl. Mauris interdum accumsan accumsan. Praesent malesuada congue erat id tincidunt. Sed eu iaculis lorem. Maecenas eget dictum justo. In lacinia lectus laoreet porta varius. Aliquam lacus nunc,
-			venenatis non dignissim quis, tincidunt nec justo. Donec auctor nisi lectus, sed sodales lorem tempus sit amet. Vestibulum vestibulum at lorem in iaculis. Nulla ultrices justo sit amet posuere luctus. Etiam vehicula magna eros, vitae placerat justo
-			finibus at. Integer quis posuere arcu.Nulla dapibus fermentum lacus nec conseq</p>
-	</div>
 
+<div class="row">
+	<% @articles.each do |a| %>
+		<div class="col-md-12 ">
+			<h3 class="section-header"><%= a.title %></h3>
+			<p><%= a.body %></p>
+		</div>
+	<% end %>
+
+
+	
 	<div class="col-md-12 ">
 		<h3 class="section-header"><a href="directions.html"> Visit the Museum</a></h3>
 		<p>We hope that you and your family are able to come and visit us in the near future. We have a selection of exciting exhibits and tour opportunities that show how Bedford County was at the center of the Westward expansion, Indian culture, and provided
@@ -23,7 +25,13 @@
 		<h3 class="section-header">Admission</h3>
 		<p>The Museum and Genealogical Library is free and open to the public, however a $5.00 donation is suggested per adult.</p>
 	</div>
-
+	<div class="col-md-12 ">
+		<h3 class="section-header"><%= link_to "Museum News and Announcements", articles_path, class: 'nav-link'  %></h3>
+	</div>
+	
+	<div class="col-md-12">
+		<h3 class="section-header"> <%= link_to "Museum Events Schedule", schedule_path , class: 'nav-link' %></h3class></h3>
+	</div>
 
 
 

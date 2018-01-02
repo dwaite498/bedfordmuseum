@@ -4,6 +4,7 @@ class IndexController < ApplicationController
   
   def index
     @indexitems = Indexitem.all
+    @articles = Article.where(main_page: true).order('main_page_index')
   end
   
   def directions 
