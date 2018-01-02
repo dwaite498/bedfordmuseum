@@ -17,6 +17,7 @@ class IndexController < ApplicationController
   end
   
   def schedule
+    @forums = Forum.all
   end
   
   def manage

@@ -6,7 +6,6 @@ class ArticlesController < ApplicationController
     end
     
     def new
-        user_is_admin
         @article = Article.new
     end
     
@@ -58,7 +57,7 @@ private
     
     def user_is_admin
         unless current_user && current_user.admin?
-           redirect_to articles_path
+           redirect_to schedule_path
            flash[:alert] = "User not authorized"
         end
     end

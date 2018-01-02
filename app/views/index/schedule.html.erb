@@ -14,25 +14,20 @@
 </p>
 
 <h3 class="section-header">Forum Schedule</h3>
+<% if current_user && current_user_is_admin? %>
+  <h5 class="center">
+    <%= link_to "Add Forum Schedule Entry", new_forum_path, class: "section-header" %>
+  </h5>
+<% end %>
 <p>
   The Forum is an informal group that that meets every month on second Saturday (Except December and January) to discuss interesting historical topics. The public is invited and we meet on the third floor of the Museum (Elevator Provided) at 1:30PM and the meetings usually last about 90 minutes.
 </p>
 <ul>
-  <li>
-    <strong>June 3rd:</strong> Tour of Avenel. Meeting at Avenel at 1:15, tour starts at 1:30pm. Any questions give the museum a call at 540-586-4520.
-  </li>
-  <li>
-    <strong>July 9th:</strong> A behind the scenes tour of Jones Memorial at 2:00 PM
-  </li>
-  <li>
-    <strong>August 12th:</strong> Genealogy Panel at the Museum. Local representatives will be available for panel style questionnaire
-  </li>
-  <li>
-    <strong>September 9th:</strong> Karen Hall is coming to give a presentation on the CCC and their training camps here in Bedford.
-  </li>
-  <li>
-    <strong>October and November:</strong> No Forums
-  </li>
+  <% @forums.each do |f| %>
+    <li>
+      <strong><%= f.date %></strong><%= f.text %><%= link_to edit_forum_path(f) %>
+    </li>
+  <% end %>
 </ul>
 <h3 class="section-header">Parking Map</h3>
 <%= image_tag(src="museumparking.png", :alt=> "parking map") %>
