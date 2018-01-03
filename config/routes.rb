@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   
   resources :articles, only: [:index, :edit, :update, :new, :create, :destroy]
   
-  resources :forum, only: [:edit, :update, :new, :create, :destroy]
+  resources :forums, only: [:edit, :update, :new, :create, :destroy]
   
 end

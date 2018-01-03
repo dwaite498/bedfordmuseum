@@ -1,5 +1,4 @@
-class ForumController < ApplicationController
-     before_action :user_is_admin
+class ForumsController < ApplicationController
     
     def new 
         @forum = Forum.new
@@ -17,13 +16,13 @@ class ForumController < ApplicationController
     end
     
     def edit 
-        @forum = Forums.find(params[:id])
+        @forum = Forum.find(params[:id])
     end
     
     def update
-        @forum = Forums.find(params[:id])
-        @forum.upsate(forum_params)
-        if @forum.update
+        @forum = Forum.find(params[:id])
+        @forum.update(forum_params)
+        if @forum.update(forum_params)
            redirect_to schedule_path 
         else
             render 'edit'
@@ -32,7 +31,7 @@ class ForumController < ApplicationController
     end
     
     def destroy
-        @forum = Forums.find(params[:id])
+        @forum = Forum.find(params[:id])
         @forum.destroy
         if @forum.destroy
            redirect_to schedule_path 
