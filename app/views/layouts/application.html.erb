@@ -43,17 +43,17 @@
 						</li>
 					<% if current_user_is_admin? %>
 						<li class="nav-item">
-							<%= link_to "Member Database", database_index_path, class: "nav-link" %>
+							<%= link_to "Museum Database", database_index_path, class: "nav-link" %>
 						</li>
 					<% end %>	
 				</ul>
 				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
 					<% if user_signed_in? && current_user.admin? %>
-						<li class="nav-item"><%= current_user.name %></li>
+						<li class="nav-link"><%= current_user.name %></li>
 						<li><%= link_to "Create User", new_user_registration_path, class: "nav-link"  %></li>
 						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></li>
 					<% elsif user_signed_in?  %>
-						<li class="nav-item"><%= current_user.name %></li>
+						<li class="nav-link"><%= current_user.name %></li>
 						<%= link_to "Edit Account", edit_user_registration_path, class: "nav-link"  %></li>
 						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></li>
 					<% else %>
