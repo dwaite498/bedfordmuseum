@@ -37,6 +37,7 @@ gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'devise', '~> 4.3'
 gem 'simple_form', '~> 3.5'
 gem 'bootstrap', '~> 4.0.0.beta3'
+gem 'devise_invitable', '~> 1.7.0'
   
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
