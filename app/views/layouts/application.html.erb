@@ -46,15 +46,24 @@
 				<% end %>	
 			</ul>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Dropdown link
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</div>
+						<% if user_signed_in? && current_user.admin? %>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="#"><%= link_to "Create User", new_user_registration_path, class: "nav-link"  %></a>
+									<a class="dropdown-item" href="#"><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></a>
+								</div>
+							<% elsif user_signed_in?  %>-->
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="#"><%= link_to "Edit Account", edit_user_registration_path, class: "nav-link"  %></a>
+									<a class="dropdown-item" href="#"><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"  %></a>
+								</div>
+							<% else %>
+								<a href="#"><%= link_to "Sign In", new_user_session_path, class: "nav-link" %></a>
+							<% end %>
+						
 				</li>
 
 				<!--<% if user_signed_in? && current_user.admin? %>-->
