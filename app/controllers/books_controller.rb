@@ -4,7 +4,7 @@ class BooksController < ApplicationController
    
     def index
         if params[:category].blank?
-            @books = Book.all.order("created_at DESC")
+            @books = Book.all.order("title DESC")
         else
             @category_id = Category.find_by(name: params[:category]).id
             @books = Book.where(:category_id => @category_id).order("title DESC")
@@ -13,7 +13,7 @@ class BooksController < ApplicationController
     
     def show
         find_book
-        @booksample = Book.all.sample(4)
+        @booksample = Book.where.not(id: @book.id).sample(4)
     end
     
     def new

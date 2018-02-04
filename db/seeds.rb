@@ -6,19 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-paypal_link = ['<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-  <input type="hidden" name="business" value="kin@kinskards.com">
-  <input type="hidden" name="cmd" value="_cart">
-  <input type="hidden" name="add" value="1">
-  <input type="hidden" name="item_name" value="Birthday - Cake and Candle">
-  <input type="hidden" name="amount" value="3.95">
-  <input type="hidden" name="currency_code" value="USD">
-  <input type="image" name="submit"
-    src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_addtocart_120x26.png"
-    alt="Add to Cart">
-  <img alt="" width="1" height="1"
-    src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
-</form>']
+# paypal_link = ['<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+#   <input type="hidden" name="business" value="kin@kinskards.com">
+#   <input type="hidden" name="cmd" value="_cart">
+#   <input type="hidden" name="add" value="1">
+#   <input type="hidden" name="item_name" value="Birthday - Cake and Candle">
+#   <input type="hidden" name="amount" value="3.95">
+#   <input type="hidden" name="currency_code" value="USD">
+#   <input type="image" name="submit"
+#     src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_addtocart_120x26.png"
+#     alt="Add to Cart">
+#   <img alt="" width="1" height="1"
+#     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+# </form>']
 @bookcategory = ["Local History", "Warfare", "Genealogy", "Trains", "Dvds and Cds", "Gifts and Accessories"]
 
 @bookcategory.each do |category|
@@ -27,19 +27,7 @@ paypal_link = ['<form target="paypal" action="https://www.paypal.com/cgi-bin/web
         )    
 end
 
-40.times do
-    book = Book.create!(
-       :title => Faker::Book.title,
-       :description => Faker::Simpsons.quote,
-       :author => Faker::Book.author,
-       :category_id => Category.ids.sample,
-       :image_file_name => "classof1940.jpg",
-       :price => Faker::Number.decimal(2),
-       :shipping => Faker::Number.decimal(2),
-       :paypal_link => paypal_link[0]
-       )
-    book.save
-end
+require_relative "booklist.rb"
 
 User.create(
     :email => "dwaite498@gmail.com",
@@ -51,9 +39,27 @@ User.create(
     
 User.create(
     :email => "email@email.com",
+    :name => "Test1",
     :password => "password",
     :admin => false,
     :created_at => "2017-10-14 20:26:01",
-    :name => "Museum Member",
-    :expiration_date => "2018-10-15 00:00:00"
+    :expires_at => "2018-10-15 00:00:00"
+    )
+    
+User.create(
+  :email => "email1@email.com",
+  :name => "Test2",
+  :password => "password",
+  :admin => false,
+  :created_at => "2017-10-14 20:26:01",
+  :expires_at => "2018-10-15 00:00:00"
+  )
+  
+User.create(
+    :email => "email@email.com",
+    :name => "Test3",
+    :password => "password",
+    :admin => false,
+    :created_at => "2017-10-14 20:26:01",
+    :expires_at => "2018-10-15 00:00:00"
     )

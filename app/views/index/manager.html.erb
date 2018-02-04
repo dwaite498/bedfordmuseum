@@ -1,0 +1,25 @@
+<h1 class="section-header">Museum Member Manager</h1>
+<p>The following entries represent a list of the users.</p>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">User Email</th>
+                <th scope="col">User Expiration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+                <tr>
+                    <td scope="row"><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= Date.parse(user.expires_at.to_s) %></td>
+                    <td><%= link_to "Renew User", update_user(user) %></th>
+                    <td><%= link_to "Deactivate User", update_user(user) %></th>
+                </tr>
+            <% end %>   
+        </tbody>
+        
+    </table>
+</div>
