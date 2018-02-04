@@ -1,5 +1,6 @@
 <h1 class="section-header">Museum Member Manager</h1>
 <p>The following entries represent a list of the users.</p>
+<h4 class="center">Active Users</h4>
 <div class="container">
     <table class="table table-striped">
         <thead>
@@ -11,6 +12,7 @@
         </thead>
         <tbody>
             <% @users.each do |user| %>
+            <!--.where(@users.expires_at > 1.day.ago)-->
                 <tr>
                     <td scope="row"><%= user.name %></td>
                     <td><%= user.email %></td>
