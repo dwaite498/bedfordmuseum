@@ -12,13 +12,12 @@
         </thead>
         <tbody>
             <% @users.each do |user| %>
-            <!--.where(@users.expires_at > 1.day.ago)-->
                 <tr>
                     <td scope="row"><%= user.name %></td>
                     <td><%= user.email %></td>
                     <td><%= Date.parse(user.expires_at.to_s) %></td>
-                    <td><%= link_to "Renew User", update_user(user) %></th>
-                    <td><%= link_to "Deactivate User", update_user(user) %></th>
+                    <td><%= link_to "Renew User", renew_user_path(user.id), method: :post %></th>
+                    <td><%= link_to "Deactivate User", deactivate_user_path(user.id), method: :post %></th>
                 </tr>
             <% end %>   
         </tbody>

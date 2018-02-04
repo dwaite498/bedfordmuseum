@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
+  post 'users/:user_id/renew', to: "users#renew", as: :renew_user
+
+  get 'users/', to: "users#index"
+
+  post 'users/:user_id/deactivate', to: "users#deactivate", as: :deactivate_user
+  
+
   devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations'}
+  
+  get 'users/:user_id', to: "users#show", as: :show_user
 
   root to: 'index#index'
   
@@ -8,7 +17,6 @@ Rails.application.routes.draw do
   get '/research', to: "index#research"
   get '/schedule', to: "index#schedule"
   get '/about', to: "index#about"
-  get '/user_manager', to: "index#manager"
   
   resources :index
   

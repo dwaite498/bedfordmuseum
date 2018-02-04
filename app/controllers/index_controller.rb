@@ -22,15 +22,6 @@ class IndexController < ApplicationController
     @forums = Forum.all
   end
   
-  def manager
-    @users = User.all.where.not(admin: true)
-  end
-  
-  def renew(user)
-    update_user
-    user.save
-  end
-  
   def create
     @indexitem = Indexitem.create(index_params)
     if index.save
@@ -63,12 +54,4 @@ class IndexController < ApplicationController
        end
   end
   
-  def update_user(user)
-    if Date.current.today? || Date.current.future?
-      user.update(expires_at: expires_at + 1.year)
-      # user.expires_at = user.expires_at + 1.year
-    else
-      user.update(DateTime.now + 1.year)
-    end
-  end
 end
