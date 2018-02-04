@@ -51,3 +51,40 @@ book = Book.create!(
 "
 )
 book.save
+
+book = Book.create!(
+   :title => "The Government Girls of WWII",
+   :description => "The Government Girls of WWII, tells story of an eighteen-year-old girl from Bedford working in Washington, D.C. The book also provides a glimpse of what women working in  Washington, D.C. did during the Second World War.",
+   :author => "Margaret Krantz Parks",
+   :category_id => 2,
+   :image_file_name => "classof1940.jpg",
+   :price => 10,
+   :shipping => 2.50,
+   :paypal_link => "<form target=""paypal"" action=""https://www.paypal.com/cgi-bin/webscr"" method=""post"">
+<input type=""hidden"" name=""cmd"" value=""_s-xclick"">
+<input type=""hidden"" name=""hosted_button_id"" value=""XQUDK4NB6HKW4"">
+<input type=""image"" src=""https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"" border=""0"" name=""submit"" alt=""PayPal - The safer, easier way to pay online!"">
+<img alt="""" border=""0"" src=""https://www.paypalobjects.com/en_US/i/scr/pixel.gif"" width=""1"" height=""1"">
+</form>
+"
+)
+book.save
+
+
+book = Book.create!(
+   :title => "A Girls Life in Virginia Before the War",
+   :description => "A true story of a young girls life lived in Virginia Bedford during the Civil War. Excerpts from the diary of Letitia B. Burwell to her nieces were complied and put together to give an accurate depiction of A Girl's Life of Virginia Before the War",   
+   :author => "Letitia B. Burwell",
+   :category_id => 2,
+   :image_file_name => "classof1940.jpg",
+   :price => 25,
+   :shipping => 6.00,
+   :paypal_link => "<form target=""paypal"" action=""https://www.paypal.com/cgi-bin/webscr"" method=""post"">
+<input type=""hidden"" name=""cmd"" value=""_s-xclick"">
+<input type=""hidden"" name=""hosted_button_id"" value=""RVWR6DBAZ83K8"">
+<input type=""image"" src=""https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"" border=""0"" name=""submit"" alt=""PayPal - The safer, easier way to pay online!"">
+<img alt="""" border=""0"" src=""https://www.paypalobjects.com/en_US/i/scr/pixel.gif"" width=""1"" height=""1"">
+</form>
+"
+)
+book.save

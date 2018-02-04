@@ -4,7 +4,7 @@ class BooksController < ApplicationController
    
     def index
         if params[:category].blank?
-            @books = Book.all.order("title DESC")
+            @books = Book.all.shuffle
         else
             @category_id = Category.find_by(name: params[:category]).id
             @books = Book.where(:category_id => @category_id).order("title DESC")
