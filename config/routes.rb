@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   post 'users/:user_id/deactivate', to: "users#deactivate", as: :deactivate_user
   
+  get 'users/:user_id/edit', to: "users#edit", as: :edit_user
+  
+  post 'users/:user_id/update', to: "users#update", as: :update_user
+  
+  
 
   devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations'}
   

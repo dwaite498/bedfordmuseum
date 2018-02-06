@@ -13,6 +13,19 @@ class UsersController < ApplicationController
     @users = User.all.where.not(admin: true)
   end
   
+  def edit
+    @user = User.find(params[:user_id])
+  end
+  
+  def update
+    user = User.find(params[:user_id])
+    user.update
+    if user.update
+       redirect_to users_path
+    else
+        render 'edit'
+    end
+  end
 
   def show
   end
