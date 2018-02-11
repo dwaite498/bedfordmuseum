@@ -49,7 +49,6 @@ class BooksController < ApplicationController
     
     def update
         find_book
-        @book.update(book_params)
         if @book.update(book_params)
            redirect_to @book
         else

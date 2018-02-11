@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   get 'users/:user_id/edit', to: "users#edit", as: :edit_user
   
-  post 'users/:user_id/update', to: "users#update", as: :update_user
+  patch 'users/:user_id/update', to: "users#update", as: :update_user
   
   
 

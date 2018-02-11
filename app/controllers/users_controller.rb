@@ -19,8 +19,7 @@ class UsersController < ApplicationController
   
   def update
     user = User.find(params[:user_id])
-    user.update
-    if user.update
+    if user.update(user_params)
        redirect_to users_path
     else
         render 'edit'
@@ -37,6 +36,11 @@ class UsersController < ApplicationController
   end
 end
 
+private
+
+def user_params
+  params.require(:user).permit(:name, :email)
+end
 
   # def update_user(user)
   #   if Date.current.today? || Date.current.future?
