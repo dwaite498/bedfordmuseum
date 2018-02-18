@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :user_is_admin
+  
   def renew
     user = User.find(params[:user_id])
     if user.expires_at.future?
@@ -34,19 +36,20 @@ class UsersController < ApplicationController
     user.expire_now!
     redirect_to users_path
   end
-end
+
 
 private
+  
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
 
-def user_params
-  params.require(:user).permit(:name, :email)
+  
+  def user_is_admin
+     unless current_user && current_user.admin?
+         redirect_to root_path
+         flash[:alert] = "User not authorized"
+     end
+  end
+  
 end
-
-  # def update_user(user)
-  #   if Date.current.today? || Date.current.future?
-  #     user.update(expires_at: expires_at + 1.year)
-  #     # user.expires_at = user.expires_at + 1.year
-  #   else
-  #     user.update(DateTime.now + 1.year)
-  #   end
-  # end

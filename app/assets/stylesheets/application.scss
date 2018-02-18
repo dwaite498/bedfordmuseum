@@ -12,7 +12,6 @@ body {
 
 .main-content {
   min-height:1024px;
-  background-color: rgba(255, 255, 255, 0.90)
 }
 
 .section-header {
@@ -30,7 +29,7 @@ img {
 }
 
 li {
-  padding-bottom: 5px;
+  
 }
 
 .schedule-list {
@@ -58,12 +57,17 @@ li {
   height: 150px;
 }
 
-body {
-  background-image: image-url("museum.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-  background-clip: content-box;
+.header-image {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: -1;
+}
+
+.background-overlay {
+  background-color: rgba(255, 255, 255, 0.90);
+  margin-top: 300px;
 }
 
 .footer {

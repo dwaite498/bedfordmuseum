@@ -77,12 +77,12 @@
 
 	<!-- End Navbar -->
 
-	<div class='container main-content'>
-		<%= yield %>
-	</div>
-
-		<!-- End page content -->
-	<footer class="footer bg-light">
+	<%= image_tag "museum.jpg", class: "header-image" %>
+	<div class="background-overlay">
+		<div class='container main-content'>
+			<%= yield %>
+		</div>	
+	</div><footer class="footer bg-light">
 		<div class="container">
 			<div class="row container">
 				<div class="col-md-3">
@@ -93,7 +93,7 @@
 
 				<div class="col-md-3">
 					<h6>Address:</h6>
-					<p>Bedford Museum and Genealogy Library 201 East Main Street Bedford, VA 24523<br /> Manager: Doug Cooper <br />Phone: (540) 586-4520</p>
+					<p>Bedford Museum and Genealogy Library<br />201 East Main Street Bedford, VA 24523<br />Manager: Doug Cooper <br />Phone: (540) 586-4520</p>
 				</div>
 
 				<div class="col-md-3">
@@ -103,8 +103,8 @@
 
 				<div class="col-md-3">
 					<h6>Bedford Informational sites:</h6>
-					<p>Bedford Chamber of Commerce www.BedfordAreaChamber.com</p>
-					<p>Bedford Welcome Center www.visitBedford.com</p>
+					<p><a href="http://www.BedfordAreaChamber.com">Bedford Chamber of Commerce</a></p>
+					<p><a href="http://www.visitBedford.com">Bedford Welcome Center</a></p>
 				</div>
 
 			</div>

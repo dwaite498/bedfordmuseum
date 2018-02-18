@@ -12,7 +12,6 @@ class BooksController < ApplicationController
     end
     
     def show
-        find_book
         @booksample = Book.where.not(id: @book.id).sample(4)
     end
     
@@ -32,7 +31,6 @@ class BooksController < ApplicationController
     end
     
     def destroy
-        find_book
         @book.destroy
         if @book.destroy
             redirect_to books_path
@@ -42,13 +40,11 @@ class BooksController < ApplicationController
     end
     
     def edit
-        find_book
         @categories = Category.all.map{ |c| [c.name, c.id]}
 
     end
     
     def update
-        find_book
         if @book.update(book_params)
            redirect_to @book
         else

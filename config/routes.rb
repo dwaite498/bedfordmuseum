@@ -23,8 +23,6 @@ Rails.application.routes.draw do
   get '/schedule', to: "index#schedule"
   get '/about', to: "index#about"
   
-  resources :index
-  
   resources :database, only: [:index]
   
   resources :books
