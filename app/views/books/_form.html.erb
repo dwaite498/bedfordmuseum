@@ -1,6 +1,6 @@
 
 <%= simple_form_for @book do |f| %>
-    <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a category") %> 
+    <%= f.association :category_id, as: :check_boxes %>
     <%= f.input :title, label: "Book Title" %>
     <%= f.input :author %>
     <%= f.input :description %>
