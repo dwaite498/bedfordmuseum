@@ -7,6 +7,7 @@
             <h1><%= @book.title %></h1>
             <h6><%= @book.author %></h6>
             <p><%= @book.description %></p>
+            <p><%= @book.category_id %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
             <p> <%= raw(@book.paypal_link) %></p>
             <% if current_user_is_admin? %>

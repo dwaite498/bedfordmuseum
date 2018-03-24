@@ -12,7 +12,7 @@ class BooksController < ApplicationController
     end
     
     def show
-        @booksample = Book.where.not(id: @book.id).sample(4)
+        @booksample = Book.where('id != ?', @book.id).where('category_id = ?', @book.category_id).sample(4)
     end
     
     def new
