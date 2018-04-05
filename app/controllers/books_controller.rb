@@ -7,7 +7,7 @@ class BooksController < ApplicationController
             @books = Book.all.shuffle
         else
             @category_id = Category.find_by(name: params[:category]).id
-            @books = Book.where(:category_id => @category_id).order('title DESC')
+            @books = Book.where(category_id: @category_id).order('title DESC')
         end
     end
 
