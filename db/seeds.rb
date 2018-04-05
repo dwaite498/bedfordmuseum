@@ -48,11 +48,11 @@ User.create(
 
 User.create(
            email: 'email1@email.com',
-  name: 'Test2',
-  password: 'password',
-  admin: false,
-  created_at: '2017-10-14 20:26:01',
-  expires_at: '2018-10-15 00:00:00'
+           name: 'Test2',
+           password: 'password',
+           admin: false,
+           created_at: '2017-10-14 20:26:01',
+           expires_at: '2018-10-15 00:00:00'
   )
 
 User.create(
