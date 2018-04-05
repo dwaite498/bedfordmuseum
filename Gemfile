@@ -40,8 +40,7 @@ gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'devise_account_expireable'
 gem 'mailgun-ruby'
-gem 'rubocop', '~> 0.54.0'
-  
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -50,10 +49,11 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'rubocop', '~> 0.54.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  
+
 
 end
 

@@ -19,7 +19,7 @@
 	<% if !notice.nil? && !notice.empty? %>
 		<p class="notice"><%= notice %></p>
 	<% end %>
-	
+
 	<!-- navbar -->
 	<nav class="navbar navbar-expand-lg fixed-top">
 		<a class="navbar-brand" href="/">Bedford Museum and Genealogical Library</a>
@@ -46,8 +46,8 @@
 						<%= link_to "Museum Database", research_path, class: "dropdown-item nav-link" %>
 					</div>
 				</li>
-				
-				
+
+
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">News</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -62,7 +62,7 @@
 				<li class="nav-item">
 					<%= link_to "Museum Database", database_index_path, class: "nav-link" %>
 				</li>
-				<% end %>	
+				<% end %>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 						<% if user_signed_in? && current_user.admin? %>
@@ -83,7 +83,7 @@
 							<% else %>
 								<a href="#"><%= link_to "Sign In", new_user_session_path, class: "nav-link" %></a>
 							<% end %>
-						
+
 				</li>
 			</ul>
 		</div>
@@ -95,7 +95,7 @@
 	<div class="background-overlay">
 		<div class='container main-content'>
 			<%= yield %>
-		</div>	
+		</div>
 	</div><footer class="footer bg-light">
 		<div class="container">
 			<div class="row container">

@@ -12,14 +12,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
 
- 
+
   def sign_up(resource_name, resource)
     puts resource_name, resource
   end
-  
+
   def authorize_admin
     return if current_user.admin?
     redirect_to root_path, alert: "Admin only!"
   end
-  
+
 end

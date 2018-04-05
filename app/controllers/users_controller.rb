@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :user_is_admin
-  
+
   def renew
     user = User.find(params[:user_id])
     if user.expires_at.future?
@@ -14,11 +14,11 @@ class UsersController < ApplicationController
   def index
     @users = User.all.where.not(admin: true)
   end
-  
+
   def edit
     @user = User.find(params[:user_id])
   end
-  
+
   def update
     user = User.find(params[:user_id])
     if user.update(user_params)
@@ -39,17 +39,17 @@ class UsersController < ApplicationController
 
 
 private
-  
+
   def user_params
     params.require(:user).permit(:name, :email)
   end
 
-  
+
   def user_is_admin
      unless current_user && current_user.admin?
          redirect_to root_path
          flash[:alert] = "User not authorized"
      end
   end
-  
+
 end

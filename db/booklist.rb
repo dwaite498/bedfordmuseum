@@ -1,7 +1,7 @@
 require 'csv'
 
 csv_path = File.join(Rails.root, "db", "booklist.csv")
-CSV.foreach(csv_path, :headers => true) do |row| 
+CSV.foreach(csv_path, :headers => true) do |row|
    book = Book.create!(
       :title => row["Title"],
       :description => row["Description"],
