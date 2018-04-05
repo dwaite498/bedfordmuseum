@@ -11,7 +11,7 @@ class DatabaseController < ApplicationController
     def user_is_admin
        unless current_user && current_user.admin?
            redirect_to root_path
-           flash[:alert] = "User not authorized"
+           flash[:alert] = 'User not authorized'
        end
   end
 end

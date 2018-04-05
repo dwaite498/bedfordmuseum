@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
     before_action :user_is_admin, except: [:index]
 
     def index
-        @articles = Article.all.order("created_at DESC")
+        @articles = Article.all.order('created_at DESC')
     end
 
     def new
@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
             redirect_to articles_path
         else
            render 'new'
-           flash[:alert] = "Error creating Article, please try again."
+           flash[:alert] = 'Error creating Article, please try again.'
         end
     end
 
@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
            redirect_to articles_path
         else
             redirect_to articles_path
-            flash[:alert] = "Error deleting article. Please try again."
+            flash[:alert] = 'Error deleting article. Please try again.'
         end
     end
 
@@ -58,7 +58,7 @@ private
     def user_is_admin
         unless current_user && current_user.admin?
            redirect_to schedule_path
-           flash[:alert] = "User not authorized"
+           flash[:alert] = 'User not authorized'
         end
     end
 

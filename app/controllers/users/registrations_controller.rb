@@ -19,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def authorize_admin
     return if current_user.admin?
-    redirect_to root_path, alert: "Admin only!"
+    redirect_to root_path, alert: 'Admin only!'
   end
 
 end

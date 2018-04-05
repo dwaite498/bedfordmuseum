@@ -7,7 +7,7 @@ class BooksController < ApplicationController
             @books = Book.all.shuffle
         else
             @category_id = Category.find_by(name: params[:category]).id
-            @books = Book.where(:category_id => @category_id).order("title DESC")
+            @books = Book.where(:category_id => @category_id).order('title DESC')
         end
     end
 
@@ -65,7 +65,7 @@ class BooksController < ApplicationController
     def user_is_admin
        unless current_user && current_user.admin?
            redirect_to books_path
-           flash[:alert] = "User not authorized"
+           flash[:alert] = 'User not authorized'
        end
     end
 end

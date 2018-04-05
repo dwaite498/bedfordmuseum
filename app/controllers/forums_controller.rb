@@ -11,7 +11,7 @@ class ForumsController < ApplicationController
            redirect_to schedule_path
         else
             render 'new'
-            flash[:alert] = "Error creating forum schedule item. Please try again."
+            flash[:alert] = 'Error creating forum schedule item. Please try again.'
         end
     end
 
@@ -26,7 +26,7 @@ class ForumsController < ApplicationController
            redirect_to schedule_path
         else
             render 'edit'
-            flash[:alert] = "Error editing forum schedule item. Please try again."
+            flash[:alert] = 'Error editing forum schedule item. Please try again.'
         end
     end
 
@@ -37,7 +37,7 @@ class ForumsController < ApplicationController
            redirect_to schedule_path
         else
             redirect_to schedule_path
-            flash[:alert] = "Error deleting forum schedule item. Please try again."
+            flash[:alert] = 'Error deleting forum schedule item. Please try again.'
         end
     end
 
@@ -51,7 +51,7 @@ class ForumsController < ApplicationController
     def user_is_admin
         unless current_user && current_user.admin?
            redirect_to articles_path
-           flash[:alert] = "User not authorized"
+           flash[:alert] = 'User not authorized'
         end
     end
 
