@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'db/schema.rb'
+    - 'db/migrate/**/*'
 
 Metrics/LineLength:
   Enabled: false
@@ -16,3 +17,6 @@ Style/ClassAndModuleChildren:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+Metrics/AbcSize:
+  Enabled: false

@@ -63,7 +63,7 @@ class BooksController < ApplicationController
 
   def user_is_admin
     return if current_user && current_user.admin?
-     redirect_to books_path
-     flash[:alert] = 'User not authorized'
+    redirect_to books_path
+    flash[:alert] = 'User not authorized'
   end
 end

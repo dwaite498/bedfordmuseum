@@ -31,14 +31,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'paperclip', '~> 5.1'
-gem 'faker', '~> 1.8', '>= 1.8.4'
-gem 'devise', '~> 4.3'
-gem 'simple_form', '~> 3.5'
 gem 'bootstrap', '~> 4.0.0.beta3'
-gem 'devise_invitable', '~> 1.7.0'
+gem 'devise', '~> 4.3'
 gem 'devise_account_expireable'
+gem 'devise_invitable', '~> 1.7.0'
+gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'mailgun-ruby'
+gem 'paperclip', '~> 5.1'
+gem 'simple_form', '~> 3.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -47,8 +47,8 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
   gem 'rubocop', '~> 0.54.0'
+  gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

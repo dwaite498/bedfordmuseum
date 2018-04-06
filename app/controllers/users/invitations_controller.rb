@@ -11,7 +11,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def accept_resource
     user = super
-    user.expires_at! (Time.now + 1.year)
+    user.expires_at!(Time.now + 1.year)
     user
   end
 end
