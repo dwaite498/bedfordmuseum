@@ -40,9 +40,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.default_url_options = { host: 'bedford-museum-rails-dwaite498.c9users.io' }
 
-    config.action_mailer.delivery_method = :mailgun
-      config.action_mailer.mailgun_settings = {
-      api_key: Rails.application.secrets.mailgun_key,
-      domain: Rails.application.secrets.mailgun_domain,
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: Rails.application.secrets.mailgun_key,
+    domain: Rails.application.secrets.mailgun_domain
   }
 end

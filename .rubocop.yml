@@ -4,3 +4,15 @@ AllCops:
 
 Metrics/LineLength:
   Enabled: false
+  
+Style/Documentation:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded

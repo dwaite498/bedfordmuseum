@@ -20,5 +20,4 @@ class UsersControllerTest < ActionController::TestCase
     get :deactivate
     assert_response :success
   end
-
 end
