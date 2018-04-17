@@ -59,7 +59,7 @@ class BooksController < ApplicationController
   end
 
   private
-  
+
   def assign_categories(book, category_ids)
     category_ids.each do |c|
       next if c.empty?
