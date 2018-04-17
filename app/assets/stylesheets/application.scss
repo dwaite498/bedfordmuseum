@@ -20,7 +20,8 @@ body {
 
 img {
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .table-header {
@@ -29,7 +30,7 @@ img {
 }
 
 li {
-  
+
 }
 
 .schedule-list {
@@ -49,6 +50,7 @@ li {
   margin-top: 10px;
   width: 260px;
   height: 337px;
+  margin-bottom: 10px;
 }
 
 .book-image-small {
@@ -98,4 +100,39 @@ li {
 
 p {
   margin: 0;
+}
+
+.dropdown-menu {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background: #bababa;
+  color: #ffffff;
+}
+
+ .navbar, .navbar .navbar-brand, .nav-item, .nav-link{
+  background: #ffffff;
+  color: black;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar:hover .nav-item:hover, .nav-link:hover{
+  background: #bababa;
+  color: #ffffff;
+}
+
+.test {
+  margin-left: auto;
+  margin-right: auto;
+  width: 33%;
 }

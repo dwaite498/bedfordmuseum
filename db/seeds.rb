@@ -19,47 +19,47 @@
 #   <img alt="" width="1" height="1"
 #     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
 # </form>']
-@bookcategory = ["Local History", "Warfare", "Genealogy", "Trains", "Dvds and Cds", "Gifts and Accessories"]
+@bookcategory = ['Local History', 'Warfare', 'Genealogy', 'Trains', 'Dvds and Cds', 'Gifts and Accessories']
 
 @bookcategory.each do |category|
-    Category.create(
-        :name => category
-        )    
+  Category.create(
+    name: category
+  )
 end
 
-require_relative "booklist.rb"
+require_relative 'booklist.rb'
 
 User.create(
-    :email => "dwaite498@gmail.com",
-    :password => "password",
-    :admin => true,
-    :created_at => "2017-10-14 20:26:01",
-    :name => "Museum Admin"
-    )
-    
+  email: 'dwaite498@gmail.com',
+  password: 'password',
+  admin: true,
+  created_at: '2017-10-14 20:26:01',
+  name: 'Museum Admin'
+)
+
 User.create(
-    :email => "email@email.com",
-    :name => "Test1",
-    :password => "password",
-    :admin => false,
-    :created_at => "2017-10-14 20:26:01",
-    :expires_at => "2018-10-15 00:00:00"
-    )
-    
+  email: 'email@email.com',
+  name: 'Test1',
+  password: 'password',
+  admin: false,
+  created_at: '2017-10-14 20:26:01',
+  expires_at: '2018-10-15 00:00:00'
+)
+
 User.create(
-  :email => "email1@email.com",
-  :name => "Test2",
-  :password => "password",
-  :admin => false,
-  :created_at => "2017-10-14 20:26:01",
-  :expires_at => "2018-10-15 00:00:00"
-  )
-  
+  email: 'email1@email.com',
+  name: 'Test2',
+  password: 'password',
+  admin: false,
+  created_at: '2017-10-14 20:26:01',
+  expires_at: '2018-10-15 00:00:00'
+)
+
 User.create(
-    :email => "email@email.com",
-    :name => "Test3",
-    :password => "password",
-    :admin => false,
-    :created_at => "2017-10-14 20:26:01",
-    :expires_at => "2018-10-15 00:00:00"
-    )
+  email: 'email@email.com',
+  name: 'Test3',
+  password: 'password',
+  admin: false,
+  created_at: '2017-10-14 20:26:01',
+  expires_at: '2018-10-15 00:00:00'
+)

@@ -1,4 +1,4 @@
-<h1 class="section-header">Museum News and Articles</h1> 
+<h1 class="section-header">Museum News and Articles</h1>
     <% if user_signed_in? && current_user.admin? %>
             <%= link_to "Create new Article", new_article_path %>
         <% end %>
