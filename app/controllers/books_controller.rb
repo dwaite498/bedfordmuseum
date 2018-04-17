@@ -50,8 +50,7 @@ class BooksController < ApplicationController
 
   def update
     # TODO: figure out how to do this here too; do you need to save after? what about update?
-    #assign_categories(@book, params[:book][:category_ids])
-
+    assign_categories(@book, params[:book][:category_ids])
     if @book.update(book_params)
       redirect_to @book
     else
