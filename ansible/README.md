@@ -66,3 +66,20 @@ one instantaneously by reassigning the floating IP.
 If swapping out the production droplet is your goal, first verify that everything looks good with
 the new droplet, then reassign the floating IP. At this point, you can destory or do whatever with
 the old droplet since it will no longer be receiving production traffic.
+
+## References
+
+The following articles and tools were influential in the provisioning design:
+
+- [Lynis - Open source security auditing](https://cisofy.com/lynis/)
+- [Lynis MAIL-8818](https://cisofy.com/controls/MAIL-8818/)
+- [Securing a Server with Ansible](https://ryaneschinger.com/blog/securing-a-server-with-ansible/)
+by Ryan Eschinger
+- [7 Security Measures to Protect Your Servers](https://www.digitalocean.com/community/tutorials/7-security-measures-to-protect-your-servers)
+by Justin Ellingwood
+- [How to harden Ubuntu Server 16.04 security in five steps](https://www.techrepublic.com/article/how-to-harden-ubuntu-server-16-04-security-in-five-steps/)
+by Jack Wallen
+- [Initial Server Setup with Debian 8](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-debian-8)
+by Mitchell Anicas
+- [Deploying NGINX and NGINX Plus with Docker](https://www.nginx.com/blog/deploying-nginx-nginx-plus-docker/)
+by Rick Nelson
