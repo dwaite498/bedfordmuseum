@@ -1,0 +1,4 @@
+---
+- import_playbook: setup/main.yml
+- import_playbook: load_content/main.yml
+- import_playbook: nginx/main.yml
