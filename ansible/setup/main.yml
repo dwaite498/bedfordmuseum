@@ -9,6 +9,7 @@
     deploy_public_keys:
       - ssh/winston.pub
       - ssh/henrietta.pub
+      - ssh/andrew_iphone.pub
     sftp_user_name: sftp
     tcp_ports:
       - 22

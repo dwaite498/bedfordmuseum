@@ -18,7 +18,7 @@
     - name: Copy nginx build files
       copy:
         src: build-nginx
-        dest: /home/
+        dest: /home/deploy/
     - name: Stop bedford-nginx container
       docker_container:
         name: bedford-nginx
