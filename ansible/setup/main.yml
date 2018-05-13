@@ -56,6 +56,7 @@
           - postfix
           - debconf
           - debconf-utils
+          - curl
     - name: Configure APT update intervals
       copy:
         src: apt-auto-upgrades
@@ -95,6 +96,8 @@
         regexp: ^/usr/sbin/logwatch
         line: /usr/sbin/logwatch --output mail --mailto {{ logwatch_email }} --detail high
         create: yes
+    - name: Enable DigitalOcean Monitoring
+      command: curl -sSL https://agent.digitalocean.com/install.sh | sh
     - name: Add deploy user
       user:
         name: "{{ deploy_user_name }}"
