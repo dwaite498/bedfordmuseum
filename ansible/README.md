@@ -31,7 +31,7 @@ The file should contain the ansible-vault password on a single line. Do not comm
     - Debian 9.4 x64
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
     - New York 3 datacenter region
-    - Enable monitoring
+    - Leave monitoring disabed (the setup script will set it up for us)
     - Choose your SSH key
 
 3. Add the droplet to the DigitalOcean firewall named Common. If you don't have access to this one,
