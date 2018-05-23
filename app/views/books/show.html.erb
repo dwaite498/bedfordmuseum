@@ -1,6 +1,6 @@
     <div class="container row">
         <div class="col-md-6">
-            <%= image_tag(@book.image_file_name, :alt => @book.title, class:"book-image") %>
+            <%= image_tag(@book.image.url, :alt => @book.title, class:"book-image") %>
             <a class="center nav-link test" href='javascript:history.back()'>Back</a>
         </div>
 
@@ -21,7 +21,7 @@
     <div class="container row ">
             <% @booksample.each do |book| %>
                 <div class="col-md-3 center">
-                    <%= link_to image_tag(book.image_file_name, :alt => book.title, class:"book-image-small"), book_url(book.id) %>
+                    <%= link_to image_tag(book.image.url(:thumb), :alt => book.title, class:"book-image-small"), book_url(book.id) %>
                     <h4><%= link_to book.title, book_url(book.id) %></a></h4>
                     <p><%= book.author %></p>
                 </div>

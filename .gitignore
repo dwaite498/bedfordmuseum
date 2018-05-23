@@ -12,3 +12,6 @@ secrets.yml
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore paperclip uploads.
+/public/system

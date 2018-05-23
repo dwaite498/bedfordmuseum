@@ -6,7 +6,7 @@ CSV.foreach(csv_path, headers: true) do |row|
     title: row['Title'],
     description: row['Description'],
     author: row['Author'],
-    image_file_name: 'classof1940.jpg',
+    # image_file_name: 'classof1940.jpg',
     price: row['Price'],
     shipping: row['Shipping'],
     paypal_link: row['Paypal Link']
