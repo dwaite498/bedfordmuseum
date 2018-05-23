@@ -1,0 +1,123 @@
+---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - secrets.yml
+    - sysctl.yml
+  vars:
+    deploy_user_name: deploy
+    deploy_public_keys:
+      - ssh/winston.pub
+      - ssh/henrietta.pub
+      - ssh/andrew_iphone.pub
+    sftp_user_name: sftp
+    tcp_ports:
+      - 22
+      - 80
+  tasks:
+    - name: Secure shared memory
+      mount:
+        src: /dev/tmpfs
+        path: /run/shm
+        fstype: tmpfs
+        opts: defaults,noexec,nosuid
+        dump: 0
+        passno: 0
+        state: mounted
+    - name: Harden the networking layer
+      sysctl:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+      loop: "{{ sysctl_config }}"
+    - name: Add apt key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+    - name: Add apt repo for Docker
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+    - name: Update installed packages
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        autoclean: yes
+        autoremove: yes
+        upgrade: yes
+    - name: Install required packages
+      apt:
+        name:
+          - ufw
+          - fail2ban
+          - unattended-upgrades
+          - docker-ce
+          - logwatch
+          - postfix
+          - debconf
+          - debconf-utils
+    - name: Configure APT update intervals
+      copy:
+        src: apt-auto-upgrades
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+    - name: Configure firewall
+      ufw:
+        state: enabled
+        policy: deny
+    - name: Open specific TCP ports
+      ufw:
+        rule: allow
+        proto: tcp
+        to_port: "{{ item }}"
+      loop: "{{ tcp_ports }}"
+    - name: Set up Postfix to relay mail
+      debconf:
+        name: postfix
+        question: "{{ item.question }}"
+        value: "{{ item.value }}"
+        vtype: "{{ item.vtype }}"
+      loop:
+        - question: postfix/mailname
+          value: "{{ ansible_fqdn }}"
+          vtype: string
+        - question: postfix/main_mailer_type
+          value: Internet Site
+          vtype: string
+    - name: Avoid leaking version info
+      lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: ^smtpd_banner
+        line: smtpd_banner = $myhostname ESMTP
+        create: yes
+    - name: Configure logwatch cron job with correct email address
+      lineinfile:
+        path: /etc/cron.daily/00logwatch
+        regexp: ^/usr/sbin/logwatch
+        line: /usr/sbin/logwatch --output mail --mailto {{ logwatch_email }} --detail high
+        create: yes
+    - name: Add deploy user
+      user:
+        name: "{{ deploy_user_name }}"
+        password: "{{ deploy_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+        groups: sudo
+        append: yes
+        shell: /bin/bash
+    - name: Add authorized keys for deploy user
+      authorized_key:
+        user: "{{ deploy_user_name }}"
+        key: "{{ lookup('file', item) }}"
+      loop: "{{ deploy_public_keys }}"
+    - name: Add sftp user
+      user:
+        name: "{{ sftp_user_name }}"
+        password: "{{ sftp_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+    - name: Configure SSH
+      copy:
+        src: ssh/sshd_config
+        dest: /etc/ssh/sshd_config
+      notify: Restart SSH
+  handlers:
+  - name: Restart SSH
+    service:
+      name: ssh
+      state: restarted
