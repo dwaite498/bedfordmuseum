@@ -27,7 +27,6 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    assign_categories(@book, params[:book][:category_ids])
     if @book.save
       redirect_to books_path
     else
@@ -49,8 +48,6 @@ class BooksController < ApplicationController
   end
 
   def update
-    # TODO: figure out how to do this here too; do you need to save after? what about update?
-    assign_categories(@book, params[:book][:category_ids])
     if @book.update(book_params)
       redirect_to @book
     else
@@ -60,15 +57,8 @@ class BooksController < ApplicationController
 
   private
 
-  def assign_categories(book, category_ids)
-    category_ids.each do |c|
-      next if c.empty?
-      book.categories << Category.find(c)
-    end
-  end
-
   def book_params
-    params.require(:book).permit(:title, :description, :author, :image_file_name, :price, :shipping, :paypal_link)
+    params.require(:book).permit(:title, :description, :author, :image, :price, :shipping, :paypal_link, category_ids: [])
   end
 
   def find_book

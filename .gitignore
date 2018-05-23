@@ -13,5 +13,8 @@ secrets.yml
 !/log/.keep
 /tmp
 
+# Ignore paperclip uploads.
+/public/system
+
 # Ignore macOS system files
 .DS_Store

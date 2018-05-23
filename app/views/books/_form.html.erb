@@ -1,6 +1,7 @@
 
 <%= simple_form_for @book do |f| %>
     <%= f.association :categories, as: :check_boxes, class: "form-check-input" %>
+    <%= f.input :image, as: :file %>
     <%= f.input :title, label: "Book Title" %>
     <%= f.input :author %>
     <%= f.input :description %>
