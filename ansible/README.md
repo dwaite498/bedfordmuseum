@@ -1,7 +1,7 @@
-# Bedford Museum Web Server Provisioning
+# Provisioning and Deployment Automation
 
-Server provisioning is automated using Ansible. This guide walks through the steps required to
-provision a new server instance. The work can be broken down into 3 steps:
+Server provisioning and deployment are automated using Ansible. This guide walks through the steps
+required to provision a new server instance. The work can be broken down into 3 steps:
 
 1. Perform local setup
 2. Create a new droplet
@@ -14,11 +14,14 @@ on your operating system. If so, ensure you have Python and pip installed, and t
 (and one other requirement) by running `$ sudo pip install -r requirements.txt` from the root of
 this repository.
 
-Next, you'll just need to create a .vault_pass file in repository root:
+Next, install [docker](https://docs.docker.com/install/) and
+[docker-compose](https://docs.docker.com/compose/install/).
 
-    touch .vault_pass
-    chmod 0600 .vault_pass
-    nano .vault_pass
+Next, you'll just need to create the file `/ansible/.vault_pass`. From the repository's root:
+
+    $ touch ansible/.vault_pass
+    $ chmod 0600 ansible/.vault_pass
+    $ nano ansible/.vault_pass
 
 The file should contain the ansible-vault password on a single line. Do not commit this file to git
 (it is listed in the .gitignore, but be careful all the same).
@@ -30,6 +33,8 @@ The file should contain the ansible-vault password on a single line. Do not comm
 
     - Debian 9.4 x64
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
+    - Enable backups
+    - Add a 1 GB block storage volume (accept the default configuration options)
     - New York 3 datacenter region
     - Enable monitoring
     - Choose your SSH key
@@ -37,15 +42,17 @@ The file should contain the ansible-vault password on a single line. Do not comm
 3. Add the droplet to the DigitalOcean firewall named Common. If you don't have access to this one,
 you can create your own. It should only allow SSH (TCP port 22) and HTTP (TCP port 80) inbound
 traffic. All outbound traffic is allowed.
-4. Replace the IP address in the `inventory` file in this repository with the one for your new
-droplet. If you want to use the server for development, leave `prod=false`. If you want to use it to
-replace the production server, set `prod=true`.
+4. Replace the IP address in the `/ansible/inventory` file in this repository with the one for your
+new droplet. If you want to use the server for development, leave `prod=false`. If you want to use
+it to replace the production server, set `prod=true`. This controls whether the droplet will get
+configured to sync the static content back to the Spaces bucket once a day.
 
 ## Running the automated provisioning
 
-Now that everything is set up, it's time to provision the new server. Just run:
+Now that everything is set up, it's time to provision the new server. You can do this using the
+Makefile in the repo root:
 
-    $ ansible-playbook --vault-password-file .vault_pass -i inventory main.yml
+    $ make setup_server run_server resetdb_server loadcontent_server
 
 This process typically takes about 30 min to 1 hour because it takes a while to transfer the 15+ GB
 of static content from our DigitalOcean spaces bucket.

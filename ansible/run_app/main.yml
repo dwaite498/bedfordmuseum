@@ -1,0 +1,51 @@
+---
+- become: yes
+  gather_facts: no
+  hosts: all
+  remote_user: deploy
+  vars_files:
+    - ../secrets.yml
+  tasks:
+    - name: Create directories for volume mounts
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - /home/deploy/run
+        - /home/deploy/run/db
+        - /home/deploy/run/rails/public/system
+    - name: Symlink /var/sftp/bedfordvamuseum to volume mounts directory
+      file:
+        src: /var/sftp/bedfordvamuseum
+        path: /home/deploy/run/static
+        state: link
+    - name: Copy deploy files
+      copy:
+        src: "{{ lookup('env','DEPLOY_FILES_DIR') }}/"
+        dest: /home/deploy/
+    - name: Stop containers
+      docker_service:
+        project_src: .
+        state: absent
+        build: no
+      environment:
+        SERVER_NAME: .bedfordvamuseum.org
+        PORT: 80
+        VOLUME_MOUNTS_DIR: /home/deploy/run
+    - name: Load new bedford_rails image
+      docker_image:
+        load_path: /home/deploy/bedford_rails.tar
+        name: bedford_rails
+        force: yes
+    - name: Run containers
+      docker_service:
+        project_src: .
+        build: no
+      environment:
+        SERVER_NAME: .bedfordvamuseum.org
+        PORT: 80
+        VOLUME_MOUNTS_DIR: /home/deploy/run
+    - name: Delete bedford_rails.tar
+      file:
+        path: /home/deploy/bedford_rails.tar
+        state: absent

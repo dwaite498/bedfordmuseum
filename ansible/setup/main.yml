@@ -38,24 +38,43 @@
     - name: Add apt repo for Docker
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
-    - name: Update installed packages
+    - name: Update apt cache
       apt:
         update_cache: yes
         cache_valid_time: 3600
         autoclean: yes
         autoremove: yes
         upgrade: yes
-    - name: Install required packages
+    - name: Install packages with apt
       apt:
         name:
-          - ufw
-          - fail2ban
-          - unattended-upgrades
-          - docker-ce
-          - logwatch
-          - postfix
           - debconf
           - debconf-utils
+          - docker-ce
+          - fail2ban
+          - logwatch
+          - postfix
+          - python-pip
+          - ufw
+          - unattended-upgrades
+          - unzip
+    - name: Install packages with pip
+      pip:
+        name:
+          - docker
+          - docker-compose
+    - name: Install rclone
+      script: install_rclone.sh
+      args:
+        creates: /usr/bin/rclone
+    - name: Create rclone config directory
+      file:
+        path: /root/.config/rclone
+        state: directory
+    - name: Copy rclone configuration
+      copy:
+        src: rclone.conf
+        dest: /root/.config/rclone/rclone.conf
     - name: Configure APT update intervals
       copy:
         src: apt-auto-upgrades
@@ -116,6 +135,20 @@
         src: ssh/sshd_config
         dest: /etc/ssh/sshd_config
       notify: Restart SSH
+    - name: Create /var/sftp directory
+      file:
+        path: /var/sftp
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    - name: Create /var/sftp/bedfordvamuseum directory
+      file:
+        path: /var/sftp/bedfordvamuseum
+        state: directory
+        owner: sftp
+        group: sftp
+        mode: 0775
   handlers:
   - name: Restart SSH
     service:

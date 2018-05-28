@@ -1,65 +1,27 @@
 ---
-- hosts: all
+- become: yes
   gather_facts: no
+  hosts: all
   remote_user: deploy
   vars_files:
     - ../secrets.yml
   tasks:
-    - name: Install unzip
-      apt:
-        name:
-          - unzip
-      become: yes
-    - name: Install rclone
-      script: install_rclone.sh
-      args:
-        creates: /usr/bin/rclone
-      become: yes
-    - name: Create rclone config directory
-      file:
-        path: /home/deploy/.config/rclone
-        state: directory
-    - name: Copy rclone configuration
-      copy:
-        src: rclone.conf
-        dest: /home/deploy/.config/rclone/rclone.conf
-    - name: Create /var/sftp directory
-      file:
-        path: /var/sftp
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
-      become: yes
-    - name: Create /var/sftp/bedfordvamuseum directory
-      file:
-        path: /var/sftp/bedfordvamuseum
-        state: directory
-        owner: sftp
-        group: sftp
-        mode: 0775
-      become: yes
     - name: Transfer static site content
-      command: rclone --config=/home/deploy/.config/rclone/rclone.conf sync spaces:bedfordvamuseum/static /var/sftp/bedfordvamuseum
-      become: yes
-    - name: Create /var/sftp/bedfordvamuseum directory
+      command: rclone sync spaces:bedfordvamuseum/static /var/sftp/bedfordvamuseum
+    - name: Set owner and group for the static site content
       file:
         path: /var/sftp/bedfordvamuseum
         state: directory
         recurse: yes
         owner: sftp
         group: sftp
-      become: yes
     - name: Ensure directories are 0755
       command: find /var/sftp/bedfordvamuseum -type d ! -perm 0755 -exec chmod 0755 {} \;
-      become: yes
     - name: Ensure files are 0644
       command: find /var/sftp/bedfordvamuseum -type f ! -perm 0644 -exec chmod 0644 {} \;
-      become: yes
     - name: Create cron job to keep static content synced with spaces bucket
       cron:
         name: spaces sync
         special_time: daily
-        job: rclone --config=/home/deploy/.config/rclone/rclone.conf sync /var/sftp/bedfordvamuseum spaces:bedfordvamuseum/static
+        job: rclone sync /var/sftp/bedfordvamuseum spaces:bedfordvamuseum/static
       when: prod
-      become: yes

@@ -18,3 +18,47 @@ This is a rebuild of the Bedford Museum website. An initial straight html and cs
 ## Contributors
  * **David Waite** - *Lead Programmer and Designer*
  * **Andrew Hershberger** - *Code and Design consultation*
+
+## Environment Setup
+
+Whether you're developing a new feature or just deploying the app, you'll need to follow these setup
+steps:
+
+1. Clone this repo
+1. Install docker, docker-compose, and ansible
+1. Add required files that are ignored by git:
+
+    /rails/config/secrets.yml
+    /ansible/.vault_pass
+
+## Development
+
+The development workflow is coordinated by a Makefile that provides high-level commands. Under the
+hood, it's implemented with a combination of docker-compose and ansible. It's been tested on macOS
+and in an AWS C9/EC2 environment.
+
+### Workflow
+
+1. To run the app, `$ make run`. This starts up 3 containers (rails, postgres, and nginx) that work
+together to serve the app. It prints some helpful info (testing URL, command reference) as well.
+1. To view the logs, `$ make logs`.
+1. If you need to execute commands in one of the containers (for example `$ rake db:reset`), use
+`$ make exec_rails`, `$ make exec_postgres`, or `$ make exec_nginx` to open a shell in the container
+you need. When you're done, you can Ctrl-D to leave the container. Note that the container must
+already be running for these commands to work.
+1. To stop and remove the containers, use `$ make quit`
+1. If you make changes that require restarting the rails app, `$ make quit` and then `$ make run`.
+
+## Deployment
+
+Server provisioning and app deployment is automated with ansible. For convenience, the Makefile
+provides high-level commands for these tasks as well. For a full explanation of our ansible
+automation, see [/ansible/README.md](ansible/README.md).
+
+1. To provision a new server to which you have SSH access, update `ansible/inventory` with the
+server's IP address and set the `prod` flag appropriately. Then run `$ make setup_server`
+1. To deploy the app, run `$ make run_server`. If you have a sudo password, this step will require
+you to type it.
+1. To reset the database, run `$ make resetdb_server`
+1. To run database migrations, run `$ make migratedb_server`
+1. To load the static content from the DigitalOcean Spaces bucket, run `$ make loadcontent_server`

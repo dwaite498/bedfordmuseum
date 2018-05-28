@@ -1,0 +1,14 @@
+---
+- become: yes
+  gather_facts: no
+  hosts: all
+  remote_user: deploy
+  vars_files:
+    - ../secrets.yml
+  tasks:
+    - name: Reset rails app database
+      command: docker-compose exec -T rails rake db:reset
+      environment:
+        SERVER_NAME: .bedfordvamuseum.org
+        PORT: 80
+        VOLUME_MOUNTS_DIR: /home/deploy/run
