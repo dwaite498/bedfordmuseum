@@ -40,7 +40,7 @@
         mode: 0775
       become: yes
     - name: Transfer static site content
-      command: rclone --config=.config/rclone/rclone.conf sync spaces:bedfordvamuseum/static /var/sftp/bedfordvamuseum
+      command: rclone --config=/home/deploy/.config/rclone/rclone.conf sync spaces:bedfordvamuseum/static /var/sftp/bedfordvamuseum
       become: yes
     - name: Create /var/sftp/bedfordvamuseum directory
       file:
@@ -60,6 +60,6 @@
       cron:
         name: spaces sync
         special_time: daily
-        job: rclone --config=.config/rclone/rclone.conf sync /var/sftp/bedfordvamuseum spaces:bedfordvamuseum/static
+        job: rclone --config=/home/deploy/.config/rclone/rclone.conf sync /var/sftp/bedfordvamuseum spaces:bedfordvamuseum/static
       when: prod
       become: yes
