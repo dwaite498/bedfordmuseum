@@ -4,4 +4,6 @@ class Book < ActiveRecord::Base
   validates_with AttachmentContentTypeValidator, attributes: :image,
   content_type: ["image/jpeg", "image/gif", "image/png"]
   validates_with AttachmentSizeValidator, attributes: :image, less_than: 1.megabytes
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 end
