@@ -38,6 +38,7 @@ gem 'devise_invitable', '~> 1.7'
 gem 'mailgun-ruby'
 gem "paperclip", "~> 6.0"
 gem 'simple_form', '~> 3.5'
+gem 'friendly_id', '~> 5.1'
 
 
 group :development, :test do
