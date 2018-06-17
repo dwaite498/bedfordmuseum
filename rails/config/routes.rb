@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   #resources :database, only: [:index]
 
-  resources :books, only: [:index, :view, :show]
+  resources :books, only: [:index, :show]
 
   #resources :articles, only: [:index, :edit, :update, :new, :create, :destroy]
 
