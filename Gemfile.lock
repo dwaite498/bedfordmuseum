@@ -234,7 +234,7 @@ DEPENDENCIES
   devise_account_expireable
   devise_invitable (~> 1.7)
   faker (~> 1.8, >= 1.8)
-  friendly_id (~> 5.1.0)
+  friendly_id (~> 5.1)
   jbuilder (~> 2.0)
   jquery-rails
   mailgun-ruby
