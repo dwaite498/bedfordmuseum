@@ -1,11 +1,13 @@
+server_names_hash_bucket_size 128;
+
 server {
-    listen 80;
+    listen ${PORT};
     return 444;
 }
 
 server {
-    listen 80;
-    server_name .bedfordvamuseum.org;
+    listen       ${PORT};
+    server_name  ${SERVER_NAME};
 
     location / {
         root   /usr/share/nginx/html;
@@ -19,10 +21,19 @@ server {
         auth_basic_user_file  /etc/apache2/.htpasswd; 
     }
 
+    location ~ /(books|assets) {
+        proxy_pass        http://rails:8080;
+        proxy_redirect    off;
+        proxy_set_header  Host $host;
+        proxy_set_header  X-Real-IP $remote_addr;
+        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header  X-Forwarded-Host $server_name;
+    }
+
     # redirect server error pages to the static page /50x.html
-    error_page   500 502 503 504  /50x.html;
+    error_page  500 502 503 504  /50x.html;
     location = /50x.html {
-        root   /usr/share/nginx/html;
+        root  /usr/share/nginx/html;
     }
 
     location ~ /\.ht {
