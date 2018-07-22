@@ -36,13 +36,4 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
-
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: Rails.application.secrets.mailgun_key,
-    domain: Rails.application.secrets.mailgun_domain
-  }
 end
