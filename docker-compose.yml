@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres:alpine
+    image: postgres:10.4-alpine
     volumes:
       - ${VOLUME_MOUNTS_DIR}/db:/var/lib/postgresql/data
     logging:
