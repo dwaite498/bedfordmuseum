@@ -1,31 +1,31 @@
 Rails.application.routes.draw do
-  post 'users/:user_id/renew', to: 'users#renew', as: :renew_user
+  #post 'users/:user_id/renew', to: 'users#renew', as: :renew_user
 
-  get 'users/', to: 'users#index'
+  #get 'users/', to: 'users#index'
 
-  post 'users/:user_id/deactivate', to: 'users#deactivate', as: :deactivate_user
+  #post 'users/:user_id/deactivate', to: 'users#deactivate', as: :deactivate_user
 
-  get 'users/:user_id/edit', to: 'users#edit', as: :edit_user
+  #get 'users/:user_id/edit', to: 'users#edit', as: :edit_user
 
-  patch 'users/:user_id/update', to: 'users#update', as: :update_user
+  #patch 'users/:user_id/update', to: 'users#update', as: :update_user
 
-  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
+  #devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
 
-  get 'users/:user_id', to: 'users#show', as: :show_user
+  #get 'users/:user_id', to: 'users#show', as: :show_user
 
-  root to: 'index#index'
+  #root to: 'index#index'
 
-  get '/directions', to: 'index#directions'
-  get '/membership', to: 'index#membership'
-  get '/research', to: 'index#research'
-  get '/schedule', to: 'index#schedule'
-  get '/about', to: 'index#about'
+  #get '/directions', to: 'index#directions'
+  #get '/membership', to: 'index#membership'
+  #get '/research', to: 'index#research'
+  #get '/schedule', to: 'index#schedule'
+  #get '/about', to: 'index#about'
 
-  resources :database, only: [:index]
+  #resources :database, only: [:index]
 
-  resources :books
+  resources :books, only: [:index, :show]
 
-  resources :articles, only: [:index, :edit, :update, :new, :create, :destroy]
+  #resources :articles, only: [:index, :edit, :update, :new, :create, :destroy]
 
-  resources :forums, only: [:edit, :update, :new, :create, :destroy]
+  #resources :forums, only: [:edit, :update, :new, :create, :destroy]
 end
