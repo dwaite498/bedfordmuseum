@@ -13,6 +13,7 @@ COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) VOLUME_MOUNTS_DIR=$(RUN_D
 
 .PHONY: run
 run: rails_image
+	rm -rf rails/tmp
 	mkdir -p $(RUN_DIR)/db $(RUN_DIR)/static/membersprotected
 	touch $(RUN_DIR)/static/index.html $(RUN_DIR)/static/membersprotected/index.html
 	cp -r nginx $(RUN_DIR)/
