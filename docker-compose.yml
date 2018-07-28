@@ -13,6 +13,7 @@ services:
     image: bedford_rails
     volumes:
       - ${VOLUME_MOUNTS_DIR}/rails/public/system:/rails/public/system
+      - ${VOLUME_MOUNTS_DIR}/rails_secrets.yml:/rails/config/secrets.yml:ro
     depends_on:
       - db
     logging:

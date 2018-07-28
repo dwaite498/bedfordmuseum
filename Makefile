@@ -21,6 +21,10 @@ run: rails_image
 		--vault-password-file ansible/.vault_pass \
 		--output $(RUN_DIR)/nginx/htpasswd \
 		$(RUN_DIR)/nginx/htpasswd
+	ansible-vault decrypt \
+		--vault-password-file ansible/.vault_pass \
+		--output $(RUN_DIR)/rails_secrets.yml \
+		$(PWD)/ansible/run_app/rails_secrets.yml
 	ln -fs $(PWD)/rails $(RUN_DIR)/
 	$(COMPOSE_ENV) docker-compose up -d
 ifdef C9_PID
@@ -71,6 +75,10 @@ run_server: rails_image
 	sudo docker save bedford_rails:latest > $(RUN_SERVER_DIR)/bedford_rails.tar
 	cp docker-compose.yml $(RUN_SERVER_DIR)/
 	cp -r nginx $(RUN_SERVER_DIR)/run/
+	ansible-vault decrypt \
+		--vault-password-file ansible/.vault_pass \
+		--output $(RUN_SERVER_DIR)/run/rails_secrets.yml \
+		$(PWD)/ansible/run_app/rails_secrets.yml
 	DEPLOY_FILES_DIR=$(RUN_SERVER_DIR) ansible-playbook \
 		--vault-password-file ansible/.vault_pass \
 		-i ansible/inventory ansible/run_app/main.yml
