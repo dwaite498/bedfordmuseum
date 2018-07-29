@@ -48,6 +48,11 @@ you need. When you're done, you can Ctrl-D to leave the container. Note that the
 already be running for these commands to work.
 1. To stop and remove the containers, use `$ make quit`
 1. If you make changes that require restarting the rails app, `$ make quit` and then `$ make run`.
+1. rails/config/secrets.yml is excluded from git, but an encrypted copy of it is stored in
+ansible/run_app/rails_secrets.yml. The Makefile is set up to decrypt this file as needed when
+running and deploying the app. To make changes to the secrets, the Makefile provides the convenient
+`$ make edit_rails_secrets`, which opens the encrypted file in your `$EDITOR`. Just make your
+changes, save, and close to update the file.
 
 ## Deployment
 
