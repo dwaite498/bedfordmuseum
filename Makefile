@@ -59,6 +59,12 @@ exec_nginx:
 logs:
 	$(COMPOSE_ENV) docker-compose logs -f
 
+.PHONY: edit_rails_secrets
+edit_rails_secrets:
+	ansible-vault edit \
+		--vault-password-file ansible/.vault_pass \
+		ansible/run_app/rails_secrets.yml
+
 #### Server Management
 
 RUN_SERVER_DIR := $(PWD)/.run_server
