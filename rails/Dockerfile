@@ -10,4 +10,4 @@ RUN apk add --no-cache --virtual build-dependencies build-base postgresql-dev \
   && apk del build-dependencies
 COPY . /rails
 EXPOSE 8080
-CMD ["bundle", "exec", "rails", "s", "-p", "8080", "-b", "0.0.0.0"]
+CMD echo $ENVIRONMENT && bundle exec rails s -p 8080 -b 0.0.0.0 -e $ENVIRONMENT

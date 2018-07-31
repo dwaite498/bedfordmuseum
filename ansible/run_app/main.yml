@@ -42,8 +42,9 @@
         project_src: .
         build: no
       environment:
-        SERVER_NAME: .bedfordvamuseum.org
+        ENVIRONMENT: production
         PORT: 80
+        SERVER_NAME: .bedfordvamuseum.org
         VOLUME_MOUNTS_DIR: /home/deploy/run
     - name: Delete bedford_rails.tar
       file:

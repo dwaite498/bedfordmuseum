@@ -11,22 +11,9 @@ endif
 PORT ?= 8080
 COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) VOLUME_MOUNTS_DIR=$(RUN_DIR)
 
-.PHONY: run
-run: rails_image
-	rm -rf rails/tmp
-	mkdir -p $(RUN_DIR)/db $(RUN_DIR)/static/membersprotected
-	touch $(RUN_DIR)/static/index.html $(RUN_DIR)/static/membersprotected/index.html
-	cp -r nginx $(RUN_DIR)/
-	ansible-vault decrypt \
-		--vault-password-file ansible/.vault_pass \
-		--output $(RUN_DIR)/nginx/htpasswd \
-		$(RUN_DIR)/nginx/htpasswd
-	ansible-vault decrypt \
-		--vault-password-file ansible/.vault_pass \
-		--output $(RUN_DIR)/rails_secrets.yml \
-		$(PWD)/ansible/run_app/rails_secrets.yml
-	ln -fs $(PWD)/rails $(RUN_DIR)/
-	$(COMPOSE_ENV) docker-compose up -d
+.PHONY: development
+.PHONY: production
+development production: %: real-%
 ifdef C9_PID
 	@echo "Trick c9 into showing testing link:"
 	@echo "server is running at 0.0.0.0:8080"
@@ -38,6 +25,14 @@ endif
 	@echo "To access the nginx container, run 'make exec_nginx'"
 	@echo "To view logs, run 'make logs'"
 	@echo "To quit, run 'make quit'"
+
+.PHONY: real-development
+real-development: run_setup
+	$(COMPOSE_ENV) docker-compose up -d
+
+.PHONY: real-production
+real-production: run_setup
+	ENVIRONMENT=production $(COMPOSE_ENV) docker-compose up -d
 
 .PHONY: quit
 quit:
@@ -112,3 +107,20 @@ loadcontent_server:
 .PHONY: rails_image
 rails_image:
 	docker build -t bedford_rails ./rails
+
+.PHONY: run_setup
+run_setup: rails_image
+	rm -rf rails/tmp
+	mkdir -p $(RUN_DIR)/db $(RUN_DIR)/static/membersprotected
+	touch $(RUN_DIR)/static/index.html $(RUN_DIR)/static/membersprotected/index.html
+	cp -r nginx $(RUN_DIR)/
+	ansible-vault decrypt \
+		--vault-password-file ansible/.vault_pass \
+		--output $(RUN_DIR)/nginx/htpasswd \
+		$(RUN_DIR)/nginx/htpasswd
+	ansible-vault decrypt \
+		--vault-password-file ansible/.vault_pass \
+		--output $(RUN_DIR)/rails_secrets.yml \
+		$(PWD)/ansible/run_app/rails_secrets.yml
+	ln -fs $(PWD)/rails $(RUN_DIR)/
+
