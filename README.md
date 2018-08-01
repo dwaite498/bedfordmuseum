@@ -39,15 +39,22 @@ and in an AWS C9/EC2 environment.
 
 ### Workflow
 
-1. To run the app, `$ make run`. This starts up 3 containers (rails, postgres, and nginx) that work
-together to serve the app. It prints some helpful info (testing URL, command reference) as well.
+1. To run the app, `$ make development` or `$ make production` (according to which environment you
+want to use. This starts up 3 containers (rails, postgres, and nginx) that work together to serve
+the app. It prints some helpful info (testing URL, command reference) as well.
 1. To view the logs, `$ make logs`.
 1. If you need to execute commands in one of the containers (for example `$ rake db:reset`), use
 `$ make exec_rails`, `$ make exec_postgres`, or `$ make exec_nginx` to open a shell in the container
 you need. When you're done, you can Ctrl-D to leave the container. Note that the container must
 already be running for these commands to work.
 1. To stop and remove the containers, use `$ make quit`
-1. If you make changes that require restarting the rails app, `$ make quit` and then `$ make run`.
+1. If you make changes that require restarting the rails app, `$ make quit` and then
+`$ make development`/`$ make production`.
+1. rails/config/secrets.yml is excluded from git, but an encrypted copy of it is stored in
+ansible/run_app/rails_secrets.yml. The Makefile is set up to decrypt this file as needed when
+running and deploying the app. To make changes to the secrets, the Makefile provides the convenient
+`$ make edit_rails_secrets`, which opens the encrypted file in your `$EDITOR`. Just make your
+changes, save, and close to update the file.
 
 ## Deployment
 
