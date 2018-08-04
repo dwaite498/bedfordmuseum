@@ -31,7 +31,7 @@ The file should contain the ansible-vault password on a single line. Do not comm
 1. Ensure your ssh public key has been added to your DigitalOcean account.
 2. Create a new droplet on DigitalOcean. Here are the options we've been using:
 
-    - Debian 9.4 x64
+    - Debian 9.5 x64
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
     - Enable backups
     - Add a 1 GB block storage volume (accept the default configuration options)
