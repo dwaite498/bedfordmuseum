@@ -110,7 +110,7 @@ rails_image:
 
 .PHONY: run_setup
 run_setup: rails_image
-	rm -rf rails/tmp
+	sudo rm -rf rails/tmp
 	mkdir -p $(RUN_DIR)/db $(RUN_DIR)/static/membersprotected
 	touch $(RUN_DIR)/static/index.html $(RUN_DIR)/static/membersprotected/index.html
 	cp -r nginx $(RUN_DIR)/

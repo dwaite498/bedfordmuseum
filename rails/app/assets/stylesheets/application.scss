@@ -44,15 +44,18 @@ img {
 
 .book-image {
   margin-top: 10px;
-  width: 260px;
-  height: 337px;
+  max-width: 260px;
+  max-height: 337px;
+  width: auto;
+  height: auto;
   margin-bottom: 10px;
 }
 
 .book-image-small {
   margin-top: 10px;
-  width: 100px;
+  max-width: 100px;
   height: 150px;
+  width: auto;
 }
 
 .header-image {
@@ -131,4 +134,10 @@ p {
   margin-left: auto;
   margin-right: auto;
   width: 33%;
+}
+
+.license {
+    text-align: center;
+    font-size: 75%;
+    color: grey;
 }
