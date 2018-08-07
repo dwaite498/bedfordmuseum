@@ -21,8 +21,8 @@
     <div class="container row ">
             <% @booksample.each do |book| %>
                 <div class="col-md-3 center">
-                    <%= link_to image_tag(book.image.url(:thumb), :alt => book.title, class:"book-image-small"), book_url(book.friendly_id) %>
-                    <h4><%= link_to book.title, book_url(book.friendly_id) %></a></h4>
+                    <%= link_to image_tag(book.image.url(:thumb), :alt => book.title, class:"book-image-small"), book_path(book.friendly_id) %>
+                    <h4><%= link_to book.title, book_path(book.friendly_id) %></a></h4>
                     <p><%= book.author %></p>
                 </div>
             <% end %>
