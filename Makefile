@@ -106,7 +106,7 @@ loadcontent_server:
 
 .PHONY: rails_image
 rails_image:
-	docker build -t bedford_rails ./rails
+	sudo docker build -t bedford_rails ./rails
 
 .PHONY: run_setup
 run_setup: rails_image
