@@ -1,0 +1,51 @@
+---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - resources/secrets.yml
+    - resources/vars.yml
+  vars:
+    deploy_user_name: deploy
+    sftp_user_name: sftp
+  tasks:
+    - name: Add deploy user
+      user:
+        name: "{{ deploy_user_name }}"
+        password: "{{ deploy_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+        groups: sudo
+        append: yes
+        shell: /bin/bash
+    - name: Add authorized keys for deploy user
+      authorized_key:
+        user: "{{ deploy_user_name }}"
+        key: "{{ lookup('file', item) }}"
+      with_fileglob:
+        - resources/ssh_keys/*
+    - name: Add sftp user
+      user:
+        name: "{{ sftp_user_name }}"
+        password: "{{ sftp_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+    - name: Configure SSH
+      template:
+        src: resources/sshd_config.j2
+        dest: /etc/ssh/sshd_config
+      notify: Restart SSH
+    - name: Create {{ mount_point }}/sftp directory
+      file:
+        path: "{{ mount_point }}/sftp"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    - name: Create {{ mount_point }}/sftp/bedfordvamuseum directory
+      file:
+        path: "{{ mount_point }}/sftp/bedfordvamuseum"
+        state: directory
+        owner: sftp
+        group: sftp
+        mode: 0775
+  handlers:
+  - name: Restart SSH
+    service:
+      name: ssh
+      state: restarted

@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:10.4-alpine
     volumes:
-      - ${VOLUME_MOUNTS_DIR}/db:/var/lib/postgresql/data
+      - ${DATA_DIR}/db:/var/lib/postgresql/data
     logging:
       options:
         max-size: 5m
@@ -12,8 +12,8 @@ services:
   rails:
     image: bedford_rails
     volumes:
-      - ${VOLUME_MOUNTS_DIR}/rails/public/system:/rails/public/system
-      - ${VOLUME_MOUNTS_DIR}/rails_secrets.yml:/rails/config/secrets.yml:ro
+      - ${DATA_DIR}/rails/public/system:/rails/public/system
+      - ${CONFIG_DIR}/rails_secrets.yml:/rails/config/secrets.yml:ro
     depends_on:
       - db
     logging:
@@ -28,9 +28,9 @@ services:
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - ${VOLUME_MOUNTS_DIR}/nginx/default.template:/etc/nginx/conf.d/default.template:ro
-      - ${VOLUME_MOUNTS_DIR}/nginx/htpasswd:/etc/apache2/.htpasswd:ro
-      - ${VOLUME_MOUNTS_DIR}/static:/usr/share/nginx/html:ro
+      - ${CONFIG_DIR}/nginx/default.template:/etc/nginx/conf.d/default.template:ro
+      - ${CONFIG_DIR}/nginx/htpasswd:/etc/apache2/.htpasswd:ro
+      - ${DATA_DIR}/sftp/bedfordvamuseum:/usr/share/nginx/html:ro
     depends_on:
       - rails
     logging:

@@ -1,0 +1,39 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Add apt key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+    - name: Add apt repo for Docker
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        autoclean: yes
+        autoremove: yes
+        upgrade: yes
+    - name: Install packages with apt
+      apt:
+        name:
+          - debconf
+          - debconf-utils
+          - docker-ce
+          - fail2ban
+          - logwatch
+          - parted
+          - postfix
+          - python-pip
+          - ufw
+          - unattended-upgrades
+          - unzip
+    - name: Install packages with pip
+      pip:
+        name:
+          - docker
+          - docker-compose

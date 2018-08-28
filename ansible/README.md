@@ -33,8 +33,7 @@ The file should contain the ansible-vault password on a single line. Do not comm
 
     - Debian 9.5 x64
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
-    - Enable backups
-    - Add a 1 GB block storage volume (accept the default configuration options)
+    - Add a 20 GB block storage volume and choose Manually Format & Mount
     - New York 3 datacenter region
     - Enable monitoring
     - Choose your SSH key
@@ -43,26 +42,21 @@ The file should contain the ansible-vault password on a single line. Do not comm
 you can create your own. It should only allow SSH (TCP port 22) and HTTP (TCP port 80) inbound
 traffic. All outbound traffic is allowed.
 4. Replace the IP address in the `/ansible/inventory` file in this repository with the one for your
-new droplet. If you want to use the server for development, leave `prod=false`. If you want to use
-it to replace the production server, set `prod=true`. This controls whether the droplet will get
-configured to sync the static content back to the Spaces bucket once a day.
+new droplet.
 
 ## Running the automated provisioning
 
 Now that everything is set up, it's time to provision the new server. You can do this using the
 Makefile in the repo root:
 
-    $ make setup_server run_server resetdb_server loadcontent_server
+    $ make setup_server run_server
 
-This process typically takes about 30 min to 1 hour because it takes a while to transfer the 15+ GB
-of static content from our DigitalOcean spaces bucket.
+After you've created the new server, you'll need to transfer the static content in. You could do
+this in multiple ways: attach an existing volume with a copy of the data, scp between droplets,
+etc. We should make this easier.
 
-Note that the production server syncs its static content to the DigitalOcean spaces bucket once a
-day. This is probably sufficiently recent if you're just creating a new environment for development
-purposes, but if your goal is to replace the production server, you should run `rclone sync`
-manually on the production server before provisioning the replacement so that you don't lose any
-recent changes. Of course, be sure you're communicating proactively with the museum staff to pick an
-appropriate time to do this maintaince.
+You'll also need to either transfer in an existing database or initialize a new one by going into
+the running rails container and running `RAILS_ENV=production rake db:up_to_you`.
 
 ## Replacing the production server
 

@@ -28,14 +28,13 @@ steps:
 1. Install docker, docker-compose, and ansible
 1. Add required files that are ignored by git:
 
-    /rails/config/secrets.yml
     /ansible/.vault_pass
 
 ## Development
 
 The development workflow is coordinated by a Makefile that provides high-level commands. Under the
-hood, it's implemented with a combination of docker-compose and ansible. It's been tested on macOS
-and in an AWS C9/EC2 environment.
+hood, it's implemented with a combination of docker-compose and ansible. It's been tested on macOS,
+Ubuntu, and AWS C9/EC2.
 
 ### Workflow
 
@@ -58,14 +57,15 @@ changes, save, and close to update the file.
 
 ## Deployment
 
-Server provisioning and app deployment is automated with ansible. For convenience, the Makefile
+Server provisioning and app deployment is automated with Ansible. For convenience, the Makefile
 provides high-level commands for these tasks as well. For a full explanation of our ansible
 automation, see [/ansible/README.md](ansible/README.md).
 
 1. To provision a new server to which you have SSH access, update `ansible/inventory` with the
-server's IP address and set the `prod` flag appropriately. Then run `$ make setup_server`
+server's IP address. Then run `$ make setup_server`
 1. To deploy the app, run `$ make run_server`. If you have a sudo password, this step will require
 you to type it.
-1. To reset the database, run `$ make resetdb_server`
-1. To run database migrations, run `$ make migratedb_server`
-1. To load the static content from the DigitalOcean Spaces bucket, run `$ make loadcontent_server`
+
+## Troubleshooting
+
+1. If things are not working, try `$ make clean`.

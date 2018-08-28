@@ -2,4 +2,4 @@ version: '3'
 services:
   rails:
     volumes:
-      - ${VOLUME_MOUNTS_DIR}/rails:/rails
+      - ${CONFIG_DIR}/rails:/rails
