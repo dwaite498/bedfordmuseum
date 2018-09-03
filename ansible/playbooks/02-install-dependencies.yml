@@ -2,15 +2,21 @@
 - hosts: all
   remote_user: root
   tasks:
-    - name: Add apt key for Docker
+    - name: Add apt keys
       apt_key:
-        url: https://download.docker.com/linux/debian/gpg
+        url: "{{ item }}"
+      loop:
+        - https://download.docker.com/linux/debian/gpg
+        - https://repos.sonar.digitalocean.com/sonar-agent.asc
     - name: Install apt-transport-https
       apt:
         name: apt-transport-https
-    - name: Add apt repo for Docker
+    - name: Add apt repos
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+        repo: "{{ item }}"
+      loop:
+        - deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+        - deb https://repos.sonar.digitalocean.com/apt main main
     - name: Update apt cache
       apt:
         update_cache: yes
@@ -23,6 +29,7 @@
         name:
           - debconf
           - debconf-utils
+          - do-agent
           - docker-ce
           - fail2ban
           - logwatch

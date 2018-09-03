@@ -35,7 +35,6 @@ The file should contain the ansible-vault password on a single line. Do not comm
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
     - Add a 20 GB block storage volume and choose Manually Format & Mount
     - New York 3 datacenter region
-    - Enable monitoring
     - Choose your SSH key
 
 3. Add the droplet to the DigitalOcean firewall named Common. If you don't have access to this one,
