@@ -3,10 +3,6 @@
   remote_user: root
   vars_files:
     - resources/secrets.yml
-  vars:
-    tcp_ports:
-      - 22
-      - 80
   tasks:
     - name: Configure APT update intervals
       copy:
@@ -21,7 +17,9 @@
         rule: allow
         proto: tcp
         to_port: "{{ item }}"
-      loop: "{{ tcp_ports }}"
+      loop:
+        - 22
+        - 80
     - name: Set up Postfix to relay mail
       debconf:
         name: postfix
