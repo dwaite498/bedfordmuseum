@@ -116,7 +116,7 @@ AcceptEnv LANG LC_*
 Subsystem sftp internal-sftp
 
 # Example of overriding settings on a per-user basis
-Match Group sftp
+Match User sftp
     ChrootDirectory {{ mount_point }}/sftp
     PasswordAuthentication yes
     ForceCommand internal-sftp
