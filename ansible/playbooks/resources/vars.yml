@@ -1,0 +1,4 @@
+---
+volume: /dev/disk/by-id/scsi-0DO_Volume_volume-nyc3-01
+partition: /dev/disk/by-id/scsi-0DO_Volume_volume-nyc3-01-part1
+mount_point: /mnt/volume-nyc3-01-part1

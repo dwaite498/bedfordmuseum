@@ -4,21 +4,23 @@
   hosts: all
   remote_user: deploy
   vars_files:
-    - ../secrets.yml
+    - resources/secrets.yml
+    - resources/vars.yml
+  vars:
+    docker_env:
+      ENVIRONMENT: production
+      SERVER_NAME: .bedfordvamuseum.org
+      PORT: 80
+      CONFIG_DIR: /home/deploy/config
+      DATA_DIR: "{{ mount_point }}"
   tasks:
-    - name: Create directories for volume mounts
+    - name: Create data directories
       file:
         path: "{{ item }}"
         state: directory
       loop:
-        - /home/deploy/run
-        - /home/deploy/run/db
-        - /home/deploy/run/rails/public/system
-    - name: Symlink /var/sftp/bedfordvamuseum to volume mounts directory
-      file:
-        src: /var/sftp/bedfordvamuseum
-        path: /home/deploy/run/static
-        state: link
+        - "{{ mount_point }}/db"
+        - "{{ mount_point }}/rails/public/system"
     - name: Copy deploy files
       copy:
         src: "{{ lookup('env','DEPLOY_FILES_DIR') }}/"
@@ -28,10 +30,7 @@
         project_src: .
         state: absent
         build: no
-      environment:
-        SERVER_NAME: .bedfordvamuseum.org
-        PORT: 80
-        VOLUME_MOUNTS_DIR: /home/deploy/run
+      environment: "{{ docker_env }}"
     - name: Load new bedford_rails image
       docker_image:
         load_path: /home/deploy/bedford_rails.tar
@@ -41,11 +40,7 @@
       docker_service:
         project_src: .
         build: no
-      environment:
-        ENVIRONMENT: production
-        PORT: 80
-        SERVER_NAME: .bedfordvamuseum.org
-        VOLUME_MOUNTS_DIR: /home/deploy/run
+      environment: "{{ docker_env }}"
     - name: Delete bedford_rails.tar
       file:
         path: /home/deploy/bedford_rails.tar

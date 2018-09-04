@@ -9,7 +9,7 @@ ifdef C9_PID
 	SERVER_NAME := $(C9_PID).vfs.cloud9.$(REGION_ID).amazonaws.com
 endif
 PORT ?= 8080
-COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) VOLUME_MOUNTS_DIR=$(RUN_DIR)
+COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) DATA_DIR=$(RUN_DIR) CONFIG_DIR=$(RUN_DIR)
 
 .PHONY: development
 .PHONY: production
@@ -28,37 +28,37 @@ endif
 
 .PHONY: real-development
 real-development: run_setup
-	$(COMPOSE_ENV) docker-compose up -d
+	sudo $(COMPOSE_ENV) docker-compose up -d
 
 .PHONY: real-production
 real-production: run_setup
-	ENVIRONMENT=production $(COMPOSE_ENV) docker-compose up -d
+	sudo ENVIRONMENT=production $(COMPOSE_ENV) docker-compose up -d
 
 .PHONY: quit
 quit:
-	$(COMPOSE_ENV) docker-compose down
+	sudo $(COMPOSE_ENV) docker-compose down
 
 .PHONY: exec_rails
 exec_rails:
-	$(COMPOSE_ENV) docker-compose exec rails sh
+	sudo $(COMPOSE_ENV) docker-compose exec rails sh
 
 .PHONY: exec_postgres
 exec_postgres:
-	$(COMPOSE_ENV) docker-compose exec db sh
+	sudo $(COMPOSE_ENV) docker-compose exec db sh
 
 .PHONY: exec_nginx
 exec_nginx:
-	$(COMPOSE_ENV) docker-compose exec nginx sh
+	sudo $(COMPOSE_ENV) docker-compose exec nginx sh
 
 .PHONY: logs
 logs:
-	$(COMPOSE_ENV) docker-compose logs -f
+	sudo $(COMPOSE_ENV) docker-compose logs -f
 
 .PHONY: edit_rails_secrets
 edit_rails_secrets:
 	ansible-vault edit \
 		--vault-password-file ansible/.vault_pass \
-		ansible/run_app/rails_secrets.yml
+		ansible/playbooks/resources/rails_secrets.yml
 
 #### Server Management
 
@@ -66,41 +66,30 @@ RUN_SERVER_DIR := $(PWD)/.run_server
 
 .PHONY: setup_server
 setup_server:
-	ansible-playbook \
-		--vault-password-file ansible/.vault_pass \
-		-i ansible/inventory ansible/setup/main.yml
+	cd ansible; ansible-playbook \
+		--vault-password-file .vault_pass -i inventory \
+		playbooks/01-secure.yml \
+		playbooks/02-install-dependencies.yml \
+		playbooks/03-configure.yml \
+		playbooks/04-set-up-volumes.yml \
+		playbooks/05-add-users.yml
 
 .PHONY: run_server
 run_server: rails_image
-	mkdir -p $(RUN_SERVER_DIR)/run
+	mkdir -p $(RUN_SERVER_DIR)/config
 	sudo docker save bedford_rails:latest > $(RUN_SERVER_DIR)/bedford_rails.tar
 	cp docker-compose.yml $(RUN_SERVER_DIR)/
-	cp -r nginx $(RUN_SERVER_DIR)/run/
-	ansible-vault decrypt \
-		--vault-password-file ansible/.vault_pass \
-		--output $(RUN_SERVER_DIR)/run/rails_secrets.yml \
-		$(PWD)/ansible/run_app/rails_secrets.yml
-	DEPLOY_FILES_DIR=$(RUN_SERVER_DIR) ansible-playbook \
-		--vault-password-file ansible/.vault_pass \
-		-i ansible/inventory ansible/run_app/main.yml
+	cp -r nginx $(RUN_SERVER_DIR)/config/
+	cp ansible/playbooks/resources/rails_secrets.yml $(RUN_SERVER_DIR)/config/
+	cd ansible; DEPLOY_FILES_DIR=$(RUN_SERVER_DIR) ansible-playbook \
+		--vault-password-file .vault_pass -i inventory \
+		playbooks/06-run-app.yml
 
-.PHONY: resetdb_server
-resetdb_server:
-	ansible-playbook \
-		--vault-password-file ansible/.vault_pass \
-		-i ansible/inventory ansible/reset_database/main.yml
+#### Cleanup
 
-.PHONY: migratedb_server
-migratedb_server:
-	ansible-playbook \
-		--vault-password-file ansible/.vault_pass \
-		-i ansible/inventory ansible/migrate_database/main.yml
-
-.PHONY: loadcontent_server
-loadcontent_server:
-	ansible-playbook \
-		--vault-password-file ansible/.vault_pass \
-		-i ansible/inventory ansible/load_content/main.yml
+.PHONY: clean
+clean:
+	sudo rm -rf $(RUN_SERVER_DIR) $(RUN_DIR)
 
 #### Shared Steps
 
@@ -111,8 +100,12 @@ rails_image:
 .PHONY: run_setup
 run_setup: rails_image
 	sudo rm -rf rails/tmp
-	mkdir -p $(RUN_DIR)/db $(RUN_DIR)/static/membersprotected
-	touch $(RUN_DIR)/static/index.html $(RUN_DIR)/static/membersprotected/index.html
+	mkdir -p \
+		$(RUN_DIR)/db \
+		$(RUN_DIR)/sftp/bedfordvamuseum/membersprotected
+	touch \
+		$(RUN_DIR)/sftp/bedfordvamuseum/index.html \
+		$(RUN_DIR)/sftp/bedfordvamuseum/membersprotected/index.html
 	cp -r nginx $(RUN_DIR)/
 	ansible-vault decrypt \
 		--vault-password-file ansible/.vault_pass \
@@ -121,6 +114,5 @@ run_setup: rails_image
 	ansible-vault decrypt \
 		--vault-password-file ansible/.vault_pass \
 		--output $(RUN_DIR)/rails_secrets.yml \
-		$(PWD)/ansible/run_app/rails_secrets.yml
+		ansible/playbooks/resources/rails_secrets.yml
 	ln -fs $(PWD)/rails $(RUN_DIR)/
-
