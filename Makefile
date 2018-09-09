@@ -85,6 +85,12 @@ run_server: rails_image
 		--vault-password-file .vault_pass -i inventory \
 		playbooks/06-run-app.yml
 
+.PHONY: restart_server
+restart_server:
+	cd ansible; ansible-playbook \
+		--vault-password-file .vault_pass -i inventory \
+		playbooks/07-restart-app.yml
+
 #### Cleanup
 
 .PHONY: clean

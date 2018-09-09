@@ -1,0 +1,27 @@
+---
+- become: yes
+  gather_facts: no
+  hosts: all
+  remote_user: deploy
+  vars_files:
+    - resources/secrets.yml
+    - resources/vars.yml
+  vars:
+    docker_env:
+      ENVIRONMENT: production
+      SERVER_NAME: .bedfordvamuseum.org
+      PORT: 80
+      CONFIG_DIR: /home/deploy/config
+      DATA_DIR: "{{ mount_point }}"
+  tasks:
+    - name: Stop containers
+      docker_service:
+        project_src: .
+        state: absent
+        build: no
+      environment: "{{ docker_env }}"
+    - name: Run containers
+      docker_service:
+        project_src: .
+        build: no
+      environment: "{{ docker_env }}"
