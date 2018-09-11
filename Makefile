@@ -10,6 +10,7 @@ ifdef C9_PID
 endif
 PORT ?= 8080
 COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) DATA_DIR=$(RUN_DIR) CONFIG_DIR=$(RUN_DIR)
+COMPOSE := $(shell which docker-compose)
 
 .PHONY: development
 .PHONY: production
@@ -28,31 +29,31 @@ endif
 
 .PHONY: real-development
 real-development: run_setup
-	sudo $(COMPOSE_ENV) docker-compose up -d
+	sudo $(COMPOSE_ENV) $(COMPOSE) up -d
 
 .PHONY: real-production
 real-production: run_setup
-	sudo ENVIRONMENT=production $(COMPOSE_ENV) docker-compose up -d
+	sudo ENVIRONMENT=production $(COMPOSE_ENV) $(COMPOSE) up -d
 
 .PHONY: quit
 quit:
-	sudo $(COMPOSE_ENV) docker-compose down
+	sudo $(COMPOSE_ENV) $(COMPOSE) down
 
 .PHONY: exec_rails
 exec_rails:
-	sudo $(COMPOSE_ENV) docker-compose exec rails sh
+	sudo $(COMPOSE_ENV) $(COMPOSE) exec rails sh
 
 .PHONY: exec_postgres
 exec_postgres:
-	sudo $(COMPOSE_ENV) docker-compose exec db sh
+	sudo $(COMPOSE_ENV) $(COMPOSE) exec db sh
 
 .PHONY: exec_nginx
 exec_nginx:
-	sudo $(COMPOSE_ENV) docker-compose exec nginx sh
+	sudo $(COMPOSE_ENV) $(COMPOSE) exec nginx sh
 
 .PHONY: logs
 logs:
-	sudo $(COMPOSE_ENV) docker-compose logs -f
+	sudo $(COMPOSE_ENV) $(COMPOSE) logs -f
 
 .PHONY: edit_rails_secrets
 edit_rails_secrets:

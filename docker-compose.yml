@@ -1,26 +1,26 @@
 version: '3'
 services:
-  db:
-    image: postgres:10.4-alpine
-    volumes:
-      - ${DATA_DIR}/db:/var/lib/postgresql/data
-    logging:
-      options:
-        max-size: 5m
-        max-file: '10'
-    restart: always
+  # db:
+  #   image: postgres:10.4-alpine
+  #   volumes:
+  #     - ${DATA_DIR}/db:/var/lib/postgresql/data
+  #   logging:
+  #     options:
+  #       max-size: 5m
+  #       max-file: '10'
+  #   restart: always
   rails:
     image: bedford_rails
-    volumes:
-      - ${DATA_DIR}/rails/public/system:/rails/public/system
-      - ${CONFIG_DIR}/rails_secrets.yml:/rails/config/secrets.yml:ro
-    depends_on:
-      - db
+    # volumes:
+    #   - ${DATA_DIR}/rails/public/system:/app/public/system
+    #   - ${CONFIG_DIR}/rails_secrets.yml:/app/config/secrets.yml:ro
+    # depends_on:
+    #   - db
     logging:
       options:
         max-size: 5m
         max-file: '10'
-    restart: always
+    # restart: always
     environment:
       - ENVIRONMENT
   nginx:
