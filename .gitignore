@@ -5,11 +5,12 @@
 secrets.yml
 
 # Ignore rails log and tmp directories
-/rails/log/*
-!/rails/log/.keep
-/rails/tmp
+/rails4/log/*
+!/rails4/log/.keep
+/rails4/tmp
 
 # Ignore rails paperclip uploads
+/rails4/public/system
 /rails/public/system
 
 # Ignore macOS system files
