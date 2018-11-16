@@ -1,0 +1,13 @@
+<h1 class="section-header">Bookstore</h1>
+    <h5 class="center">If any of our books do not have a purchase link, please call the Museum at (540) 586-4520 and we will be happy to process your order over the phone.</h5>
+    <div class="section-header">
+        <div class="row">
+            <% @books.each do |book| %>
+                <div class="col-md-3">
+                    <div><h6><%= link_to book.title, book_path(book) %></h6>
+                    <p><%= book.author %></p></div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+<p class="license">Question mark folder by Linseed Studio from the Noun Project</p>
