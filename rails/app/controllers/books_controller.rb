@@ -3,6 +3,10 @@ class BooksController < ApplicationController
         @books = Book.all
     end
     
+    def show
+        @book = Book.find(params[:id])
+    end
+    
     def new
        @oook = Book.new(book_params)
        if Book.save
@@ -36,8 +40,7 @@ class BooksController < ApplicationController
     
     def update
         @book = Book.find(params[:id])
-
-        if @book.update
+        if @book.update(book_params)
             redirect_to @book
         else
             render edit
