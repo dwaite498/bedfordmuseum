@@ -12,17 +12,21 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test 'Should create' do
     initial_count = Book.all.count
 
-    post books_url(
-      book: {
-        title: 'title',
-        description: 'description',
-        author: 'author',
-        price: '1.2',
-        shipping: '3.4',
-        paypal_link: 'paypal_link'})
+    new_book
+    
 
     assert_redirected_to books_url
     assert_equal Book.last.title, 'title'
     assert_equal Book.all.count, initial_count + 1
+    teardown do
+      Rails.cache.clear
+    end
+  end
+  
+  test 'should edit' do
+    initial_value = Book.first.price
+    
+    assert_equal Book.first.price, Book.first.price + 1
   end
 end
+
