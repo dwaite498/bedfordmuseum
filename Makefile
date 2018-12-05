@@ -41,7 +41,7 @@ quit:
 
 .PHONY: exec_rails
 exec_rails:
-	sudo $(COMPOSE_ENV) $(COMPOSE) exec rails sh
+	sudo $(COMPOSE_ENV) $(COMPOSE) exec -u $$(id -u):$$(id -g) rails sh
 
 .PHONY: exec_postgres
 exec_postgres:
