@@ -5,17 +5,6 @@
 	<p>This is a placeholder index header earmarked for replacement by the announcement and news slides.</p>
 </div>
 
-
-<div class="row">
-	<% @articles.each do |a| %>
-		<div class="col-md-12 ">
-			<h3 class="section-header"><%= a.title %></h3>
-			<p><%= a.body %></p>
-		</div>
-	<% end %>
-
-
-
 	<div class="col-md-12 ">
 		<h3 class="section-header"><%= link_to "Visit the Museum", directions_path, class: 'nav-link' %></h3>
 		<p>We hope that you and your family are able to come and visit us in the near future. We have a selection of exciting exhibits and tour opportunities that show how Bedford County was at the center of the Westward expansion, Indian culture, and provided
@@ -24,9 +13,6 @@
 	<div class="col-md-12 ">
 		<h3 class="section-header">Admission</h3>
 		<p>The Museum and Genealogical Library is free and open to the public, however a $5.00 donation is suggested per adult.</p>
-	</div>
-	<div class="col-md-12 ">
-		<h3 class="section-header"><%= link_to "Museum News and Announcements", articles_path, class: 'nav-link'  %></h3>
 	</div>
 
 	<div class="col-md-12">
