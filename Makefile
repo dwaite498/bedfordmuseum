@@ -97,6 +97,8 @@ restart_server:
 .PHONY: clean
 clean:
 	sudo rm -rf $(RUN_SERVER_DIR) $(RUN_DIR)
+	sudo docker container prune -f
+	sudo docker image prune -f
 
 #### Shared Steps
 
