@@ -12,6 +12,21 @@ PORT ?= 8080
 COMPOSE_ENV := SERVER_NAME=$(SERVER_NAME) PORT=$(PORT) DATA_DIR=$(RUN_DIR) CONFIG_DIR=$(RUN_DIR)
 COMPOSE := $(shell which docker-compose)
 
+#### New development workflow
+
+MYSQL_ROOT_PASSWORD := example
+
+.PHONY: run_db
+run_db:
+	sudo docker run --name db -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d -p 3306:3306 mysql:8
+	@echo "To quit, run 'make stop_db'"
+
+.PHONY: stop_db
+stop_db:
+	sudo docker stop db
+
+#### Old development workflow
+
 .PHONY: development
 .PHONY: production
 development production: %: real-%
