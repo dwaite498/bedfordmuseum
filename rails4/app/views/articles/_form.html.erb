@@ -1,9 +1,0 @@
-
-<%= simple_form_for @article do |f| %>
-    <%= f.input :title, label: "Title" %>
-    <%= f.input :body %>
-    <p>Present on Main Page? <%= f.check_box :main_page %> </p>
-    <%= f.input :main_page_index, as: :integer %>
-    <%= f.button :submit, class: "btn-custom2" %>
-<% end %>
-
