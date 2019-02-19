@@ -10,7 +10,6 @@ server {
     server_name  ${SERVER_NAME};
 
     location / {
-        proxy_pass        http://rails:8080;
         root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
@@ -22,7 +21,7 @@ server {
         auth_basic_user_file  /etc/apache2/.htpasswd; 
     }
 
-    location ~ /(?!bookstore)(books|assets|about) {
+    location ~ /(?!bookstore)(books|assets|about|images/missingimage\.jpg|images/museum\.jpg) {
         proxy_pass        http://rails:8080;
         proxy_redirect    off;
         proxy_set_header  Host $host;

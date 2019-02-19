@@ -1,21 +1,5 @@
-# Ignore bundler config
-.bundle
-
 # Ignore secrets
 secrets.yml
 
-# Ignore rails log and tmp directories
-/rails4/log/*
-!/rails4/log/.keep
-/rails4/tmp
-
-# Ignore rails paperclip uploads
-/rails4/public/system
-/rails/public/system
-
 # Ignore macOS system files
 .DS_Store
-
-# Ignore run directories
-/.run_server
-/.run
