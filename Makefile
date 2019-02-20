@@ -1,5 +1,16 @@
 #### Development
 
+IP ?= 0.0.0.0
+PORT ?= 8080
+
+.PHONY: development
+development:
+ifdef C9_PID
+	@echo "Trick c9 into showing testing link:"
+	@echo "server is running at 0.0.0.0:8080"
+endif
+	cd rails && bundle exec rails s -b $(IP) -p $(PORT)
+
 .PHONY: db_container_create
 db_container_create:
 	sudo docker create --name db --env-file .env -p 3306:3306 mysql:8 --default-authentication-plugin=mysql_native_password
