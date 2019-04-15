@@ -5,11 +5,13 @@
         <div class="row">
             <% @books.each do |book| %>
                 <div class="col-md-3">
-                    <div><%= link_to image_tag(book.image, :class => "book-image-small"), book_path(book) %></div>
+                    <div><%= link_to image_tag(src=book.image, :class => "book-image-small"), book_path(book) %></div>
                     <div><h6><%= link_to book.title, book_path(book) %></h6>
                     <p><%= book.author %></p></div>
+                    <p> <%= link_to "edit book", edit_book_path(book) %></p>
+                    <p> <%= link_to "delete book", book, method: :delete, data: { confirm: "Are you sure?" } %></p>
                 </div>
             <% end %>
         </div>
     </div>
-<p class="license">Question mark folder by Linseed Studio from the Noun Project</p>
+    

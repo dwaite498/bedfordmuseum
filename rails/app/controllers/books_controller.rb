@@ -8,12 +8,7 @@ class BooksController < ApplicationController
     end
     
     def new
-       @oook = Book.new(book_params)
-       if Book.save
-           redirect_to books_path
-       else
-           render new
-       end
+       @book = Book.new
     end
 
     def create
@@ -26,6 +21,7 @@ class BooksController < ApplicationController
     end
     
     def destroy
+        @book = Book.find(params[:id])
        @book.destroy
        if @book.destroy
            redirect_to books_path
@@ -48,8 +44,7 @@ class BooksController < ApplicationController
     end
 
     private
-
     def book_params
-        params.permit(:title, :description, :author, :price, :shipping, :paypal_link, :image)
+        params.require(:book).permit(:title, :description, :author, :price, :shipping, :paypal_link, :image)
     end
 end

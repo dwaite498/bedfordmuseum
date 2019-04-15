@@ -1,8 +1,8 @@
 
 <%= simple_form_for @book do |f| %>
     <%= f.input :image, as: :file %>
-    <%= f.input :title, label: "Book Title" %>
-    <%= f.input :author %>
+    <%= f.input :title, label: "Book Title", placeholder: 'title' %>
+    <%= f.input :author, placeholder: 'author' %>
     <%= f.input :description %>
     <%= f.input :price, label: "Price" %>
     <%= f.input :shipping, label: "Shipping" %>

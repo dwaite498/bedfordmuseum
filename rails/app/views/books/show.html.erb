@@ -9,8 +9,8 @@
             <p><%= @book.description %></p>
             <p> Price: <%= @book.price %> Shipping <%= @book.shipping %></p>
             <p> <%= raw(@book.paypal_link) %></p>
-                <p> <%= link_to "edit book", edit_book_path(@book) %></p>
-                <p> <%= link_to "delete book", @book, method: :delete, data: { confirm: "Are you sure?" } %></p>
+            <p> <%= link_to "edit book", edit_book_path(@book) %></p>
+            <p> <%= link_to "delete book", @book, method: :delete, data: { confirm: "Are you sure?" } %></p>
         </div>
     </div>
     
