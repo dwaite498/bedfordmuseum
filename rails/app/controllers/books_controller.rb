@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+    before_action :authenticate_admin!, except: [:show, :index]
+    
     def index
         @books = Book.all
     end

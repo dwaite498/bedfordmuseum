@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, controllers: { registrations: "registrations"}
   root 'index#index'
   
   get '/directions', to: 'index#directions'

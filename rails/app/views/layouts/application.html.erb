@@ -50,6 +50,15 @@
 				<li class="nav-item">
 					<%= link_to "Bookstore", books_path, class: "nav-link" %>
 				</li>
+				<% if admin_signed_in? %>
+					<li class="nav-item member-login">
+						<%= link_to 'logout', destroy_admin_session_path, method: :delete, class: "nav-link" %>
+					</li>
+				<% else %>
+					<li class="nav-item member-login">
+						<%= link_to 'login', new_admin_session_path, class: "nav-link"  %>
+					</li>
+				<% end %>
 			</ul>
 		</div>
 	</nav>
