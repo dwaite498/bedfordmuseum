@@ -1,0 +1,6 @@
+---
+docker_env:
+  RAILS_CONFIG_DIR: "{{ admin_home_dir }}/rails"
+  DATA_DIR: "{{ mount_point }}"
+  DB_PASSWORD: "{{ db_password }}"
+  DOMAIN_NAME: "{{ domain_name }}"

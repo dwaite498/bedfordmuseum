@@ -1,0 +1,6 @@
+---
+mount_point: /mnt/volume-nyc3-01-part1
+domain_name: bedfordvamuseum.org
+admin_user_name: deploy
+admin_home_dir: "/home/{{ admin_user_name }}"
+ansible_become_pass: "{{ admin_user_password }}"

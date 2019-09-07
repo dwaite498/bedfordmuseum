@@ -1,5 +1,0 @@
-# Ignore secrets
-secrets.yml
-
-# Ignore macOS system files
-.DS_Store

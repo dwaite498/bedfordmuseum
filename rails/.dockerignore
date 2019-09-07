@@ -1,0 +1,7 @@
+log
+tmp
+public/system
+Dockerfile
+config/secrets.yml
+.env
+Makefile

@@ -1,3 +1,3 @@
+.run_server
 *.retry
 .vault_pass
-!secrets.yml

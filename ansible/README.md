@@ -31,15 +31,15 @@ The file should contain the ansible-vault password on a single line. Do not comm
 1. Ensure your ssh public key has been added to your DigitalOcean account.
 2. Create a new droplet on DigitalOcean. Here are the options we've been using:
 
-    - Debian 9.5 x64
+    - Debian 10 x64
     - Standard 1GB mem, 1 vCPU, 25 GB SSD, 1 TB transfer at $5/mo
     - Add a 20 GB block storage volume and choose Manually Format & Mount
     - New York 3 datacenter region
     - Choose your SSH key
 
 3. Add the droplet to the DigitalOcean firewall named Common. If you don't have access to this one,
-you can create your own. It should only allow SSH (TCP port 22) and HTTP (TCP port 80) inbound
-traffic. All outbound traffic is allowed.
+you can create your own. It should only allow SSH (TCP port 22), HTTP (TCP port 80), and HTTPS
+(TCP port 443) inbound traffic. All outbound traffic is allowed.
 4. Replace the IP address in the `/ansible/inventory` file in this repository with the one for your
 new droplet.
 
@@ -48,24 +48,35 @@ new droplet.
 Now that everything is set up, it's time to provision the new server. You can do this using the
 Makefile in the repo root:
 
-    $ make setup_server run_server
+    $ make initialize_server 
 
-After you've created the new server, you'll need to transfer the static content in. You could do
+After you've created the new server, you'll need to transfer any saved content in. You could do
 this in multiple ways: attach an existing volume with a copy of the data, scp between droplets,
-etc. We should make this easier.
+etc. The provided scripts only really handle the from-scratch case, so if you choose to attach an
+existing volume, you'll need to do some manual work or make some modifications.
 
-You'll also need to either transfer in an existing database or initialize a new one by going into
-the running rails container and running `RAILS_ENV=production rake db:up_to_you`.
+Next, load in the app resources and initialize HTTPS certs using certbot
+
+    $ make initialize_app
+
+And then start the app
+
+    $ make run_app
+
+You'll also need to either transfer in an existing database or initialize a new one by sshing into
+the server going into the running rails container and running `# rails db:reset`
 
 ## Replacing the production server
 
 The bedfordvamuseum.org domain points to a DigitalOcean floating IP address. The advantage of doing
-this instead of point it to the droplet's IP directly is that we can swap out our droplet for a new
+this instead of pointing it to the droplet's IP directly is that we can swap out our droplet for a new
 one instantaneously by reassigning the floating IP.
 
 If swapping out the production droplet is your goal, first verify that everything looks good with
 the new droplet, then reassign the floating IP. At this point, you can destory or do whatever with
-the old droplet since it will no longer be receiving production traffic.
+the old droplet since it will no longer be receiving production traffic. This will probably be a little
+trickier now that we're managing https certs with certbot, which we won't be able to configure until
+the domains are pointing to the right places.
 
 ## References
 

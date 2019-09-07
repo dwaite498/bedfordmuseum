@@ -1,0 +1,30 @@
+---
+- become: true
+  gather_facts: false
+  hosts: all
+  remote_user: "{{ admin_user_name }}"
+  vars_files:
+    - ../common_secrets.yml
+    - ../common_vars.yml
+    - secrets.yml
+    - vars.yml
+  tasks:
+    - name: Stop containers
+      docker_compose:
+        project_src: .
+        state: absent
+        build: false
+      environment: "{{ docker_env }}"
+    - name: Run containers
+      docker_compose:
+        project_src: .
+        build: false
+      environment: "{{ docker_env }}"
+    - name: Add certbot-renew cron job
+      cron:
+        name: certbot-renew
+        minute: "0"
+        hour: "*/12"
+        user: root
+        job: "docker-compose exec nginx certbot-renew.sh"
+        cron_file: certbot-renew

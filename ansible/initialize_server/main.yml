@@ -1,0 +1,204 @@
+---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - ../common_secrets.yml
+    - ../common_vars.yml
+    - secrets.yml
+    - vars.yml
+  tasks:
+    - name: Harden the networking layer
+      sysctl:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+      loop:
+        - {name: net.ipv4.conf.all.rp_filter, value: 1}
+        - {name: net.ipv4.conf.default.rp_filter, value: 1}
+        - {name: net.ipv4.icmp_echo_ignore_broadcasts, value: 1}
+        - {name: net.ipv4.conf.all.accept_source_route, value: 0}
+        - {name: net.ipv6.conf.all.accept_source_route, value: 0}
+        - {name: net.ipv4.conf.default.accept_source_route, value: 0}
+        - {name: net.ipv6.conf.default.accept_source_route, value: 0}
+        - {name: net.ipv4.conf.all.send_redirects, value: 0}
+        - {name: net.ipv4.conf.default.send_redirects, value: 0}
+        - {name: net.ipv4.tcp_syncookies, value: 1}
+        - {name: net.ipv4.tcp_max_syn_backlog, value: 2048}
+        - {name: net.ipv4.tcp_synack_retries, value: 2}
+        - {name: net.ipv4.tcp_syn_retries, value: 5}
+        - {name: net.ipv4.conf.all.log_martians, value: 1}
+        - {name: net.ipv4.icmp_ignore_bogus_error_responses, value: 1}
+        - {name: net.ipv4.conf.all.accept_redirects, value: 0}
+        - {name: net.ipv6.conf.all.accept_redirects, value: 0}
+        - {name: net.ipv4.conf.default.accept_redirects, value: 0}
+        - {name: net.ipv6.conf.default.accept_redirects, value: 0}
+        - {name: net.ipv4.icmp_echo_ignore_all, value: 1}
+    - name: Update apt cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        autoclean: true
+        autoremove: true
+        upgrade: "yes"
+    - name: Install gnupg with apt
+      apt:
+        name:
+          - gnupg
+    - name: Add apt keys
+      apt_key:
+        url: "{{ item }}"
+      loop:
+        - https://download.docker.com/linux/debian/gpg
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+    - name: Add apt repos
+      apt_repository:
+        repo: >-
+          deb [arch=amd64] https://download.docker.com/linux/debian
+          {{ ansible_lsb.codename }} stable
+    - name: Update apt cache again
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        autoclean: true
+        autoremove: true
+        upgrade: "yes"
+    - name: Work around for https://github.com/docker/docker-py/issues/1502
+      apt:
+        name: python-backports.ssl-match-hostname
+    - name: Install packages with apt
+      apt:
+        name:
+          - debconf
+          - debconf-utils
+          - docker-ce
+          - fail2ban
+          - logwatch
+          - parted
+          - postfix
+          - python-pip
+          - ufw
+          - unattended-upgrades
+          - unzip
+    - name: Install packages with pip
+      pip:
+        name:
+          - docker
+          - docker-compose
+    - name: Download DigitalOcean Agent Installer
+      get_url:
+        url: https://repos.insights.digitalocean.com/install.sh
+        dest: /tmp/digital-ocean-installer.sh
+        mode: u+x
+    - name: Execute the DigitalOcean Agent Installer
+      command: /tmp/digital-ocean-installer.sh
+    - name: Remove the DigitalOcean Agent Installer
+      file:
+        path: /tmp/digital-ocean-installer.sh
+        state: absent
+    - name: Configure APT update intervals
+      copy:
+        src: resources/apt-auto-upgrades
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+    - name: Configure firewall
+      ufw:
+        state: enabled
+        policy: deny
+    - name: Open specific TCP ports
+      ufw:
+        rule: allow
+        proto: tcp
+        to_port: "{{ item }}"
+      loop:
+        - "22"
+        - "80"
+        - "443"
+    - name: Set up Postfix to relay mail
+      debconf:
+        name: postfix
+        question: "{{ item.question }}"
+        value: "{{ item.value }}"
+        vtype: "{{ item.vtype }}"
+      loop:
+        - question: postfix/mailname
+          value: "{{ ansible_fqdn }}"
+          vtype: string
+        - question: postfix/main_mailer_type
+          value: Internet Site
+          vtype: string
+    - name: Avoid leaking version info
+      lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: ^smtpd_banner
+        line: smtpd_banner = $myhostname ESMTP
+        create: true
+    - name: Configure logwatch cron job with correct email address
+      lineinfile:
+        path: /etc/cron.daily/00logwatch
+        regexp: ^/usr/sbin/logwatch
+        line: >-
+          /usr/sbin/logwatch
+          --output mail
+          --mailto {{ admin_email }}
+          --detail high
+        create: true
+    - name: Partition the volume if needed
+      parted:
+        device: "{{ volume }}"
+        label: gpt
+        number: 1
+        state: present
+    - name: Create EXT filesystem if needed
+      filesystem:
+        fstype: ext4
+        dev: "{{ partition }}"
+    - name: Mount persistent volume
+      mount:
+        fstype: ext4
+        opts: defaults,discard,noatime,nofail
+        path: "{{ mount_point }}"
+        src: "{{ partition }}"
+        state: mounted
+    - name: Add sftp user
+      user:
+        name: "{{ sftp_user_name }}"
+        password: "{{ sftp_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+    - name: Add admin user
+      user:
+        name: "{{ admin_user_name }}"
+        password: "{{ admin_user_password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
+        groups:
+          - sudo
+          - sftp
+        append: true
+        shell: /bin/bash
+    - name: Add authorized keys for admin user
+      authorized_key:
+        user: "{{ admin_user_name }}"
+        key: "{{ lookup('file', item) }}"
+      with_fileglob:
+        - resources/ssh_keys/*
+    - name: Configure SSH
+      template:
+        src: resources/sshd_config.j2
+        dest: /etc/ssh/sshd_config
+      notify: Restart SSH
+    - name: Create {{ mount_point }}/sftp directory
+      file:
+        path: "{{ mount_point }}/sftp"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    - name: Create {{ mount_point }}/sftp/bedfordvamuseum directory
+      file:
+        path: "{{ mount_point }}/sftp/bedfordvamuseum"
+        state: directory
+        owner: sftp
+        group: sftp
+        mode: 0775
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted

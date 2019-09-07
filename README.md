@@ -17,7 +17,7 @@ This is a rebuild of the Bedford Museum website. An initial straight html and cs
 
 ## Contributors
  * **David Waite** - *Lead Programmer and Designer*
- * **Andrew Hershberger** - *Code and Design consultation*
+ * **Andrew Hershberger** - *Advising and Deployment*
 
 ## Environment Setup
 
@@ -33,39 +33,27 @@ steps:
 ## Development
 
 The development workflow is coordinated by a Makefile that provides high-level commands. Under the
-hood, it's implemented with a combination of docker-compose and ansible. It's been tested on macOS,
-Ubuntu, and AWS C9/EC2.
+hood, it's implemented with a combination of docker and ansible. It's been tested on macOS, Ubuntu,
+and AWS C9/EC2.
 
 ### Workflow
 
-1. To run the app, `$ make development` or `$ make production` (according to which environment you
-want to use. This starts up 3 containers (rails, postgres, and nginx) that work together to serve
-the app. It prints some helpful info (testing URL, command reference) as well.
-1. To view the logs, `$ make logs`.
-1. If you need to execute commands in one of the containers (for example `$ rake db:reset`), use
-`$ make exec_rails`, `$ make exec_postgres`, or `$ make exec_nginx` to open a shell in the container
-you need. When you're done, you can Ctrl-D to leave the container. Note that the container must
-already be running for these commands to work.
-1. To stop and remove the containers, use `$ make quit`
-1. If you make changes that require restarting the rails app, `$ make quit` and then
-`$ make development`/`$ make production`.
+A makefile is provided inside of the rails directory for development convenience.
+
+1. To run the app, use `$ make development`. Type Control-C (^C) to quit.
+1. To create the database, use `$ make db_create`
+1. To start the database, use `$ make db_start`
+1. To stop the database, use `$ make db_stop`
+1. To view the database logs, `$ make db_logs`
+1. To delete the database, `$ make db_stop clean`
 1. rails/config/secrets.yml is excluded from git, but an encrypted copy of it is stored in
 ansible/run_app/rails_secrets.yml. The Makefile is set up to decrypt this file as needed when
 running and deploying the app. To make changes to the secrets, the Makefile provides the convenient
-`$ make edit_rails_secrets`, which opens the encrypted file in your `$EDITOR`. Just make your
+`$ make secrets_edit`, which opens the encrypted file in your `$EDITOR`. Just make your
 changes, save, and close to update the file.
 
 ## Deployment
 
-Server provisioning and app deployment is automated with Ansible. For convenience, the Makefile
-provides high-level commands for these tasks as well. For a full explanation of our ansible
+Server provisioning and app deployment is automated with Ansible. A separate makefile in the ansible
+directory provides high-level commands for these tasks as well. For a full explanation of our ansible
 automation, see [/ansible/README.md](ansible/README.md).
-
-1. To provision a new server to which you have SSH access, update `ansible/inventory` with the
-server's IP address. Then run `$ make setup_server`
-1. To deploy the app, run `$ make run_server`. If you have a sudo password, this step will require
-you to type it.
-
-## Troubleshooting
-
-1. If things are not working, try `$ make clean`.
