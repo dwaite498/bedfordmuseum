@@ -33,8 +33,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form'
 gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
-gem "actionview", ">= 5.2.2.1"
-gem "railties", ">= 5.2.2.1"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
