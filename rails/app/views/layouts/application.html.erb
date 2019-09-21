@@ -6,10 +6,12 @@
 	<title>Bedford Museum</title>
 	<meta name="description" content="Bedford Museum and Genealogical Library">
 	<meta name="author" content="David Waite">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    
 	<!-- main content -->
 </head>
 
@@ -36,6 +38,7 @@
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item nav-link" href="/directions.htm">Directions</a>
 							<a class="dropdown-item nav-link" href="/membership.htm">Donate</a>
+							<a class="dropdown-item nav-link" href="/schedule.htm">Schedule</a>
 						</div>
 					</li>
 				</li>
@@ -43,22 +46,14 @@
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research Services</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item nav-link" href="/research">Genealogical Research</a>
-						<a class="dropdown-item nav-link" href="/membersprotected/onlinewelcomepage.htm">Member Login</a>
+						<a class="dropdown-item nav-link" href="http://www.bedfordvamuseum.org/membership.htm">Member Login</a>
 					</div>
 				</li>
 
 				<li class="nav-item">
 					<%= link_to "Bookstore", books_path, class: "nav-link" %>
 				</li>
-				<% if admin_signed_in? %>
-					<li class="nav-item member-login">
-						<%= link_to 'logout', destroy_admin_session_path, method: :delete, class: "nav-link" %>
-					</li>
-				<% else %>
-					<li class="nav-item member-login">
-						<%= link_to 'login', new_admin_session_path, class: "nav-link"  %>
-					</li>
-				<% end %>
+				
 			</ul>
 		</div>
 	</nav>
@@ -93,7 +88,19 @@
 					<h6>Bedford Informational sites:</h6>
 					<p><a href="http://www.BedfordAreaChamber.com">Bedford Chamber of Commerce</a></p>
 					<p><a href="http://www.visitBedford.com">Bedford Welcome Center</a></p>
+					<p></p>
+					<% if admin_signed_in? %>
+					<p class="nav-item ">
+						<%= link_to 'logout', destroy_admin_session_path, method: :delete, class: "nav-link" %>
+					</p>
+				<% else %>
+					<p class="nav-item">
+						<%= link_to 'Admin Login', new_admin_session_path, class: "nav-link"  %>
+					</p>
+				<% end %>
+					
 				</div>
+				
 
 			</div>
 		</div>

@@ -14,8 +14,20 @@
 </p>
 
 <h3 class="section-header">Forum Schedule</h3>
+<% if current_user_is_admin? %>
+  <h5 class="center">
+    <%= link_to "Add Forum Schedule Entry", new_forum_path, class: "section-header" %>
+  </h5>
+<% end %>
 <p>
   The Forum is an informal group that that meets every month on second Saturday (Except December and January) to discuss interesting historical topics. The public is invited and we meet on the third floor of the Museum (Elevator Provided) at 1:30PM and the meetings usually last about 90 minutes.
 </p>
+<ul>
+  <% @forums.each do |f| %>
+    <li>
+      <strong><%= f.date.strftime("%B %d - ") %></strong><%= f.text %><br /><% if current_user_is_admin? %><%= link_to "Edit", edit_forum_path(f) %> <%= link_to "Delete", f, method: :delete, data: { confirm: "Are you sure?" } %><% end %>
+    </li>
+  <% end %>
+</ul>
 <h3 class="section-header">Parking Map</h3>
 <%= image_tag(src="museumparking.png", :alt=> "parking map") %>
