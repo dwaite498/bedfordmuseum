@@ -5,11 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Book.create(
-  title: 'Title',
-  description: 'Description',
-  author: 'author',
-  price: BigDecimal("100"),
-  shipping: BigDecimal("100"),
-  paypal_link: "paypal_link",
-)
+# Book.create(
+#   title: 'Title',
+#   description: 'Description',
+#   author: 'author',
+#   price: BigDecimal("100"),
+#   shipping: BigDecimal("100"),
+#   paypal_link: "paypal_link",
+# )
