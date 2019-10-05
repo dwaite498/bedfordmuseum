@@ -10,17 +10,11 @@ initialize_server_edit_secrets:
 		--vault-password-file .vault_pass \
 		initialize_server/secrets.yml
 
-RUN_SERVER_DIR := $(PWD)/.run_server
+DEPLOY_FILES_DIR := $(PWD)/.run_server
 
 .PHONY: initialize_app
-initialize_app:
-	mkdir -p $(RUN_SERVER_DIR)/rails
-	cp initialize_app/resources/docker-compose.yml $(RUN_SERVER_DIR)/
-	sudo docker build -t rails ../rails
-	sudo docker save rails:latest > $(RUN_SERVER_DIR)/rails/image.tar
-	cp initialize_app/resources/rails_secrets.yml $(RUN_SERVER_DIR)/rails/
-	cp -rp initialize_app/resources/nginx $(RUN_SERVER_DIR)/
-	DEPLOY_FILES_DIR=$(RUN_SERVER_DIR) ansible-playbook \
+initialize_app: prepare_deploy_files
+	DEPLOY_FILES_DIR=$(DEPLOY_FILES_DIR) ansible-playbook \
 		--vault-password-file .vault_pass -i inventory \
 		initialize_app/main.yml
 
@@ -30,11 +24,11 @@ run_app:
 		--vault-password-file .vault_pass -i inventory \
 		run_app/main.yml
 
-.PHONY: run_app_edit_secrets
-run_app_edit_secrets:
-	ansible-vault edit \
-		--vault-password-file .vault_pass \
-		run_app/secrets.yml
+.PHONY: update_app
+update_app: prepare_deploy_files
+	DEPLOY_FILES_DIR=$(DEPLOY_FILES_DIR) ansible-playbook \
+		--vault-password-file .vault_pass -i inventory \
+		update_app/main.yml
 
 .PHONY: edit_common_secrets
 edit_common_secrets:
@@ -44,6 +38,19 @@ edit_common_secrets:
 
 .PHONY: clean
 clean:
-	sudo rm -rf $(RUN_SERVER_DIR)
+	sudo rm -rf $(DEPLOY_FILES_DIR)
 	sudo docker container prune -f
 	sudo docker image prune -f
+	sudo docker volume prune -f
+
+.PHONY: prepare_deploy_files
+prepare_deploy_files:
+	mkdir -p $(DEPLOY_FILES_DIR)/rails
+	cp initialize_app/resources/docker-compose.yml $(DEPLOY_FILES_DIR)/
+	ansible-vault decrypt \
+		--vault-password-file .vault_pass \
+		--output ../rails/config/secrets.yml \
+		initialize_app/resources/rails_secrets.yml
+	sudo docker build -t rails ../rails
+	sudo docker save rails:latest > $(DEPLOY_FILES_DIR)/rails/image.tar
+	cp -rp initialize_app/resources/nginx $(DEPLOY_FILES_DIR)/

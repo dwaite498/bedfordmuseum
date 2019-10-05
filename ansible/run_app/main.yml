@@ -6,14 +6,13 @@
   vars_files:
     - ../common_secrets.yml
     - ../common_vars.yml
-    - secrets.yml
-    - vars.yml
   tasks:
     - name: Stop containers
       docker_compose:
         project_src: .
         state: absent
         build: false
+        remove_volumes: true
       environment: "{{ docker_env }}"
     - name: Run containers
       docker_compose:

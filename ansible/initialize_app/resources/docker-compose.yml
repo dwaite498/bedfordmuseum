@@ -16,13 +16,12 @@ services:
   rails:
     image: rails
     environment:
-      - RAILS_ENV=production
       - DB_HOST=db
       - DB_USERNAME=root
       - DB_PASSWORD
     volumes:
+      - rails-public:/app/public
       - ${DATA_DIR}/rails/public/system:/app/public/system
-      - ${RAILS_CONFIG_DIR}/rails_secrets.yml:/app/config/secrets.yml:ro
     depends_on:
       - db
     logging:
@@ -43,6 +42,7 @@ services:
       - 80:80/tcp
       - 443:443/tcp
     volumes:
+      - rails-public:/usr/share/nginx/rails
       - ${DATA_DIR}/sftp/bedfordvamuseum:/usr/share/nginx/html:ro
       - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
     depends_on:
@@ -52,3 +52,5 @@ services:
         max-size: 5m
         max-file: '10'
     restart: unless-stopped
+volumes:
+  rails-public:

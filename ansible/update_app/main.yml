@@ -1,0 +1,40 @@
+---
+- become: true
+  gather_facts: false
+  hosts: all
+  remote_user: "{{ admin_user_name }}"
+  vars_files:
+    - ../common_secrets.yml
+    - ../common_vars.yml
+  tasks:
+    - name: Copy files
+      copy:
+        src: "{{ lookup('env','DEPLOY_FILES_DIR') }}/"
+        dest: "{{ admin_home_dir }}/"
+        force: true
+    - name: Load rails image
+      docker_image:
+        load_path: "{{ admin_home_dir }}/rails/image.tar"
+        name: rails
+        source: load
+        force_source: true
+    - name: Build custom nginx image
+      docker_image:
+        build:
+          path: "{{ admin_home_dir }}/nginx"
+          pull: false
+        name: nginx-certbot
+        source: build
+        force_source: true
+    - name: Stop containers
+      docker_compose:
+        project_src: .
+        state: absent
+        build: false
+        remove_volumes: true
+      environment: "{{ docker_env }}"
+    - name: Run containers
+      docker_compose:
+        project_src: .
+        build: false
+      environment: "{{ docker_env }}"

@@ -4,3 +4,8 @@ domain_name: bedfordvamuseum.org
 admin_user_name: admin
 admin_home_dir: "/home/{{ admin_user_name }}"
 ansible_become_pass: "{{ admin_user_password }}"
+docker_env:
+  RAILS_CONFIG_DIR: "{{ admin_home_dir }}/rails"
+  DATA_DIR: "{{ mount_point }}"
+  DB_PASSWORD: "{{ db_password }}"
+  DOMAIN_NAME: "{{ domain_name }}"
