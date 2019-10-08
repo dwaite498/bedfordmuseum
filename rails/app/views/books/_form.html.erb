@@ -1,13 +1,13 @@
 
 <%= simple_form_for(@book, html: {class: 'form-vertical' }) do |f| %>
     <%= f.error_notification %>
-    <%= f.input :image, as: :file, error: 'Book image is mandatory, please specify one' %>
+    <%= f.input :image, as: :file, error: 'Book image is required, please specify one' %>
     <%= f.input :title, label: "Book Title", placeholder: 'Title' %>
     <%= f.input :author, placeholder: 'Author' %>
     <%= f.input :description %>
     <%= f.input :price, label: "Price" %>
-    <%= f.input :shipping, label: "Shipping" %>
-    <%= f.input :paypal_link, label: "Paypal Link" %>
+    <%= f.input :shipping, label: "Shipping", placeholder: 'Decimal' %>
+    <%= f.input :paypal_link, label: "Paypal Link", placeholder: 'Decimal' %>
     <%= f.button :submit, class: "nav-link" %>
     <%= link_to "Back", books_path, class: "nav-link back-button" %>
 <% end %>
