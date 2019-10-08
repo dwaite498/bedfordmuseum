@@ -1,6 +1,8 @@
 <h1 class="section-header">Bookstore</h1>
     <h5 class="center">If any of our books do not have a purchase link, please call the Museum at (540) 586-4520 and we will be happy to process your order over the phone.</h5>
-    <p> <%= link_to "Create New Book", new_book_path %></p>
+    <% if admin_signed_in? %>
+        <p> <%= link_to "Create New Book", new_book_path %></p>
+    <% end %>
     <div class="section-header">
         <div class="row">
             <% @books.each do |book| %>
