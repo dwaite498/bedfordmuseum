@@ -21,7 +21,7 @@ services:
       - DB_PASSWORD
     volumes:
       - rails-public:/app/public
-      - ${DATA_DIR}/rails/public/system:/app/public/system
+      - ${DATA_DIR}/rails/storage:/app/storage
     depends_on:
       - db
     logging:

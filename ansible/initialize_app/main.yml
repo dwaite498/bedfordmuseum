@@ -13,7 +13,7 @@
         state: directory
       loop:
         - "{{ mount_point }}/db"
-        - "{{ mount_point }}/rails/public/system"
+        - "{{ mount_point }}/rails/storage"
         - "{{ mount_point }}/letsencrypt"
     - name: Copy files
       copy:

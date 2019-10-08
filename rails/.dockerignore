@@ -1,6 +1,7 @@
 log
 tmp
 public/system
+storage
 Dockerfile
 .env
 Makefile
