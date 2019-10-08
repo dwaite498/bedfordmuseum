@@ -84,16 +84,16 @@
 
 				<div class="col-md-3">
 					<h6>Bedford Informational sites:</h6>
-					<p><a href="http://www.BedfordAreaChamber.com">Bedford Chamber of Commerce</a></p>
-					<p><a href="http://www.visitBedford.com">Bedford Welcome Center</a></p>
+					<a href="http://www.BedfordAreaChamber.com">Bedford Chamber of Commerce</a>
+					<a href="http://www.visitBedford.com">Bedford Welcome Center</a>
 					<p></p>
 					<% if admin_signed_in? %>
-					<p class="nav-item ">
-						<%= link_to 'logout', destroy_admin_session_path, method: :delete, class: "nav-link" %>
+					<p class="btn btn-light">
+						<%= link_to 'logout', destroy_admin_session_path, method: :delete, class: "btn" %>
 					</p>
 				<% else %>
-					<p class="nav-item">
-						<%= link_to 'Admin Login', new_admin_session_path, class: "nav-link"  %>
+					<p class="btn btn-light">
+						<%= link_to 'Admin Login', new_admin_session_path, class: "btn"  %>
 					</p>
 				<% end %>
 					
