@@ -1,7 +1,7 @@
     <div class="container row">
         <div class="col-md-6">
             <div><%= image_tag(@book.image, :class => "book-image") %></div>
-            <a><%= link_to "Back", books_path, class: "nav-link" %></a>
+            <a><%= link_to "Back", books_path, class: "nav-link back-button" %></a>
         </div>
         <div class="col-md-6">
             <h1><%= @book.title %></h1>
