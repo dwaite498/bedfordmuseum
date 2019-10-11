@@ -36,6 +36,12 @@ edit_common_secrets:
 		--vault-password-file .vault_pass \
 		common_secrets.yml
 
+.PHONY: edit_htpasswd
+edit_htpasswd:
+	ansible-vault edit \
+		--vault-password-file .vault_pass \
+		initialize_app/resources/nginx/htpasswd
+
 .PHONY: clean
 clean:
 	sudo rm -rf $(DEPLOY_FILES_DIR)
