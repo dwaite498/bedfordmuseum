@@ -13,3 +13,10 @@
 #   shipping: BigDecimal("100"),
 #   paypal_link: "paypal_link",
 # )
+@bookcategory = ['Local History', 'Warfare', 'Genealogy', 'Trains', 'Dvds and Cds', 'Gifts and Accessories']
+
+@bookcategory.each do |category|
+  Category.create(
+    name: category
+  )
+end
