@@ -1,5 +1,15 @@
 <h1 class="section-header">Bookstore</h1>
     <h5 class="center">If any of our books do not have a purchase link, please call the Museum at (540) 586-4520 and we will be happy to process your order over the phone.</h5>
+    <div class="center">
+        <div class="<%= 'inactive' %> btn btn-light">
+                <%= link_to "Clear", books_path %>
+            </div>
+        <% Category.all.each do |category| %>
+            <div class="<%= 'active' if params[:category] == category.name %> btn btn-light">
+                <%= link_to category.name, books_path(category: category.name) %>
+            </div>
+        <% end %>
+    </div>
     <% if admin_signed_in? %>
         <div class="btn btn-light"> <%= link_to "Create New Book", new_book_path, class:"btn" %></div>
     <% end %>

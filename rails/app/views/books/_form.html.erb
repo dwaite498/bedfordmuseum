@@ -8,6 +8,7 @@
     <%= f.input :price, label: "Price" %>
     <%= f.input :shipping, label: "Shipping", placeholder: 'Decimal' %>
     <%= f.input :paypal_link, label: "Paypal Link", placeholder: 'Decimal' %>
+    <%= f.association :categories, as: :check_boxes, class: "form-check-input" %>
     <%= f.button :submit, class: "nav-link" %>
     <%= link_to "Back", books_path, class: "nav-link back-button" %>
 <% end %>

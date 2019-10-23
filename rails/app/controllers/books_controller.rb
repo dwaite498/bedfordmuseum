@@ -2,7 +2,12 @@ class BooksController < ApplicationController
     before_action :authenticate_admin!, except: [:show, :index]
     
     def index
-        @books = Book.all
+        if params[:category].blank?
+          @books = Book.all.shuffle
+        else
+          categorize = Category.find_by(name: params[:category])
+          @books = categorize.books.order('title DESC')
+        end
     end
     
     def show
@@ -12,6 +17,7 @@ class BooksController < ApplicationController
     
     def new
        @book = Book.new
+       categories
     end
 
     def create
@@ -35,6 +41,7 @@ class BooksController < ApplicationController
     
     def edit
         @book = Book.find(params[:id])
+        categories
     end
     
     def update
@@ -48,6 +55,10 @@ class BooksController < ApplicationController
 
     private
     def book_params
-        params.require(:book).permit(:title, :description, :author, :price, :shipping, :paypal_link, :image)
+        params.require(:book).permit(:title, :description, :author, :price, :shipping, :paypal_link, :image, category_ids: [])
+    end
+    
+    def categories
+        @categories = Category.all.map { |c| [c.name, c.id] }
     end
 end
