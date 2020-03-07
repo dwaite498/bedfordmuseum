@@ -5,14 +5,14 @@
                 <%= link_to "Clear", books_path %>
             </div>
         <% Category.all.each do |category| %>
-            <div class="<%= 'active' if params[:category] == category.name %> btn btn-light">
-                <%= link_to category.name, books_path(category: category.name) %>
-            </div>
+            <% if category.books.count > 0 %>
+                <div class="<%= 'active' if params[:category] == category.name %> btn btn-light">
+                    <%= link_to category.name, books_path(category: category.name) %>
+                </div>
+            <% end %>
         <% end %>
     </div>
-    <% if admin_signed_in? %>
         <div class="btn btn-light"> <%= link_to "Create New Book", new_book_path, class:"btn" %></div>
-    <% end %>
     <div class="section-header">
         <div class="row">
             <% @books.each do |book| %>
