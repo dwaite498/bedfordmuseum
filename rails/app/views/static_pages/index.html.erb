@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Html</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,10 +12,9 @@
   <tbody>
     <% @static_pages.each do |static_page| %>
       <tr>
-        <td><%= static_page.html.sanitize %></td>
-        <td><%= link_to 'Show', static_page %></td>
+        <h4><%= link_to static_page.title, static_page %></h4>
         <td><%= link_to 'Edit', edit_static_page_path(static_page) %></td>
-        <td><%= link_to 'Destroy', static_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', static_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

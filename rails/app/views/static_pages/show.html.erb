@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <%= @static_page.homepage? %>
-
+<h3><%= @static_page.title %></h3>
 <p> <%= link_to "Edit", edit_static_page_path(@static_page) %></p>
 
 <div class="trix-content"><%=raw @static_page.html %></div>
