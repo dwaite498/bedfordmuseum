@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :static_pages
   devise_for :admins, controllers: { registrations: "registrations"}
   root 'index#index'
   
