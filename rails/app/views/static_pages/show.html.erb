@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
+<%= @static_page.homepage? %>
+
+<p> <%= link_to "Edit", edit_static_page_path(@static_page) %></p>
 
 <div class="trix-content"><%=raw @static_page.html %></div>
 

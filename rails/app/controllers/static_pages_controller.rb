@@ -69,6 +69,6 @@ class StaticPagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def static_page_params
-      params.require(:static_page).permit(:html)
+      params.require(:static_page).permit(:html,:homepage)
     end
 end
