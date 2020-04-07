@@ -1,3 +1,3 @@
 class StaticPage < ApplicationRecord
-  validates_uniqueness_of :homepage
+  validates :homepage,  uniqueness: true, if: :homepage
 end

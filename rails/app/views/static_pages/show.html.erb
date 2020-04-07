@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
-<%= @static_page.homepage? %>
+<% if @static_page.homepage? %>
+  <p>Current Homepage</p>
+<% end %>
 <h3><%= @static_page.title %></h3>
 <p> <%= link_to "Edit", edit_static_page_path(@static_page) %></p>
+<td><%= link_to 'Delete', @static_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
 <div class="trix-content"><%=raw @static_page.html %></div>
 
